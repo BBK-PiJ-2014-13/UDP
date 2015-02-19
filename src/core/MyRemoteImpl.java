@@ -1,13 +1,20 @@
 package core;
 
+import java.rmi.Naming;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 
-public class MyRemoteImpl extends UnicastRemoteObject implements MyRemote{
+public class MyRemoteImpl extends UnicastRemoteObject implements MyRemote {
 
 	protected MyRemoteImpl() throws RemoteException {
 		super();
-		// TODO Auto-generated constructor stub
+
+		try {
+			MyRemote service = new MyRemoteImpl();
+			Naming.rebind("Remote Hello", service);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	@Override
