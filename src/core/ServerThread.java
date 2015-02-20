@@ -1,5 +1,5 @@
 package core;
 
-public class ServerThread {
+public class ServerThread extends Thread {
 
 }
