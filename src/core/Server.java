@@ -10,6 +10,9 @@ public class Server {
 		
 		try {
 			ServerSocket serverSocket = new ServerSocket(portNumber);
+			while (listening) {
+				new ServerThread(serverSocket.accept()).start();
+			}
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
