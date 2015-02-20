@@ -12,13 +12,17 @@ public class ServerThread extends Thread {
 	}
 
 	public void run() {
-
-	try {
-		socket.close();
-	} catch (IOException e) {
-		// TODO Auto-generated catch block
-		e.printStackTrace();
-	}
+		// TODO Send unique ID
+		// TODO Tell client if its sender or receiver
+		// TODO Listen to UDP connection
+		// TODO Tell client to connect over UDP
+		// TODO Relay Audio data
+		try {
+			socket.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 }
