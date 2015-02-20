@@ -14,8 +14,8 @@ public class Server {
 				new ServerThread(serverSocket.accept()).start();
 			}
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			System.err.println("Could not listen on port " + portNumber);
+            System.exit(-1);
 		}
 	}
 }
