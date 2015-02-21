@@ -1,16 +1,21 @@
 package core;
 
-import java.rmi.RemoteException;
-import java.rmi.registry.LocateRegistry;
-import java.rmi.registry.Registry;
+import java.io.IOException;
+import java.net.ServerSocket;
 
 public class Server {
-	public void registerServer() {
+	public static void main(String[] args) {
+		int portNumber = 4444;
+		boolean listening = true;
+		
 		try {
-			Registry reg = LocateRegistry.createRegistry(1099);
-			reg.rebind("echangeAudio", new ExchangeAudioServer());
-		} catch (RemoteException e) {
-			e.printStackTrace();
+			ServerSocket serverSocket = new ServerSocket(portNumber);
+			while (listening) {
+				new ServerThread(serverSocket.accept()).start();
+			}
+		} catch (IOException e) {
+			System.err.println("Could not listen on port " + portNumber);
+            System.exit(-1);
 		}
 	}
 }

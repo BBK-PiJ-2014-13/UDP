@@ -1,19 +1,26 @@
 package core;
 
-import java.rmi.NotBoundException;
-import java.rmi.RemoteException;
-import java.rmi.registry.LocateRegistry;
-import java.rmi.registry.Registry;
+import java.io.IOException;
+import java.net.Socket;
+import java.net.UnknownHostException;
 
 public class Client {
-	public void ServerLink() {
+	public static void main(String[] args) {
+		String hostName = "host";
+		int portNumber = 4444;
+		
 		try {
-			Registry reg = LocateRegistry.getRegistry("localhost", 1099);
-			ExchangeAudioService exchangeAudio = (ExchangeAudioService) reg.lookup("audioExchange");
-			exchangeAudio.exchangeAudio();
-		} catch (RemoteException | NotBoundException e) {
+			Socket socket = new Socket(hostName, portNumber);
+			// TODO Ask for Unique ID
+			// TODO Ask if its first to connect
+			// TODO Open UDP connection to server
+				// Send or receive audio
+		} catch (UnknownHostException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
-
 }
