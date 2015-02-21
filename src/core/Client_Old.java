@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.net.Socket;
 import java.net.UnknownHostException;
 
-public class Client {
+public class Client_Old {
 	public static void main(String[] args) {
 		String hostName = "host";
 		int portNumber = 4444;
