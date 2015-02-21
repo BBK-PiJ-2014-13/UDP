@@ -13,7 +13,13 @@ public class Server {
 		try {
 			ServerSocket serverSocket = new ServerSocket(portNumber);
 			while (listening) {
-				new ServerThread(serverSocket.accept(), nextID).start();
+				
+				if (!hasFirstConnection) {
+					new ServerThread(serverSocket.accept(), nextID, true).start();
+					hasFirstConnection = true;
+				} else {
+					new ServerThread(serverSocket.accept(), nextID, false).start();
+				}
 				nextID++;
 			}
 		} catch (IOException e) {
