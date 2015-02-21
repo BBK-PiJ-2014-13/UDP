@@ -35,7 +35,7 @@ public class Client {
 			
 			socket.close();
 			// TODO Open UDP connection to server
-			// Send or receive audio
+			// TODO Send or receive audio
 		} catch (UnknownHostException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
