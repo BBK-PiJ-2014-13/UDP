@@ -1,5 +1,7 @@
 package core;
 
-public interface ExchangeAudioService {
+import java.rmi.Remote;
+
+public interface ExchangeAudioService extends Remote {
 
 }
