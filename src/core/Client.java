@@ -11,22 +11,23 @@ public class Client {
 	public static void main(String[] args) {
 		String hostName = "host";
 		String sentence = null;
-		String modifiedSentence = null;
+		int id;
 		int portNumber = 4444;
 
 		try {
+			
+			// Connect to server
 			Socket socket = new Socket(hostName, portNumber);
-			// TODO Ask for Unique ID
-			BufferedReader inFromUser = new BufferedReader(
-					new InputStreamReader(System.in));
+			
 			DataOutputStream outToServer = new DataOutputStream(
 					socket.getOutputStream());
 			BufferedReader inFromServer = new BufferedReader(
 					new InputStreamReader(socket.getInputStream()));
-			sentence = inFromUser.readLine();
-			outToServer.writeBytes(sentence + '\n');
-			modifiedSentence = inFromServer.readLine();
-			System.out.println("FROM SERVER: " + modifiedSentence);
+			
+			// TODO Ask for Unique ID
+			outToServer.writeBytes("IDrequest");
+			id = Integer.parseInt(inFromServer.readLine());
+			
 			socket.close();
 			// TODO Ask if its first to connect
 			// TODO Open UDP connection to server
