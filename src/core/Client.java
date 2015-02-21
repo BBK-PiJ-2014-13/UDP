@@ -30,7 +30,7 @@ public class Client {
 			id = Integer.parseInt(inFromServer.readLine());
 			
 			// Ask if its first to connect
-			outToServer.writeBytes("firstToConnect");
+			outToServer.writeBytes("firstToConnectRequest");
 			firstToConnect = Boolean.parseBoolean(inFromServer.readLine());
 			
 			socket.close();
