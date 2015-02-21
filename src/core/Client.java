@@ -16,7 +16,6 @@ public class Client {
 		boolean firstToConnect;
 
 		try {
-			
 			// Connect to server
 			Socket socket = new Socket(hostName, portNumber);
 			

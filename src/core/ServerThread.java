@@ -11,9 +11,10 @@ public class ServerThread extends Thread {
 	String clientSentence = null;
 	int id = 0;
 
-	public ServerThread(Socket socket) {
+	public ServerThread(Socket socket, int id) {
 		super("ServerThread");
 		this.socket = socket;
+		this.id = id;
 	}
 
 	public void run() {
