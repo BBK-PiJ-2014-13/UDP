@@ -8,6 +8,7 @@ public class Server {
 		int portNumber = 4444;
 		boolean listening = true;
 		int nextID = 0;
+		boolean hasFirstConnection = false;
 		
 		try {
 			ServerSocket serverSocket = new ServerSocket(portNumber);

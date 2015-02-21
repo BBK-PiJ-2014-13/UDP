@@ -10,11 +10,13 @@ public class ServerThread extends Thread {
 	private Socket socket = null;
 	String clientSentence = null;
 	int id = 0;
+	boolean isFirstToConnect;
 
-	public ServerThread(Socket socket, int id) {
+	public ServerThread(Socket socket, int id, boolean isFirstToConnect) {
 		super("ServerThread");
 		this.socket = socket;
 		this.id = id;
+		this.isFirstToConnect = isFirstToConnect;
 	}
 
 	public void run() {
@@ -30,10 +32,11 @@ public class ServerThread extends Thread {
 				outToClient.writeBytes(Integer.toString(id));
 			}
 
+			// TODO Tell client if its sender or receiver
+
 		} catch (IOException e1) {
 			e1.printStackTrace();
 		}
-		// TODO Tell client if its sender or receiver
 		// TODO Listen to UDP connection
 		// TODO Tell client to connect over UDP
 		// TODO Relay Audio data
