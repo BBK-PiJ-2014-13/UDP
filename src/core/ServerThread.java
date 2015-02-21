@@ -9,6 +9,7 @@ import java.net.Socket;
 public class ServerThread extends Thread {
 	private Socket socket = null;
 	String clientSentence = null;
+	int id = 0;
 
 	public ServerThread(Socket socket) {
 		super("ServerThread");
@@ -16,14 +17,18 @@ public class ServerThread extends Thread {
 	}
 
 	public void run() {
-		// TODO Send unique ID
 		try {
+
 			BufferedReader inFromClient = new BufferedReader(
 					new InputStreamReader(socket.getInputStream()));
 			DataOutputStream outToClient = new DataOutputStream(
 					socket.getOutputStream());
-			clientSentence = inFromClient.readLine();
-			System.out.println("Received: " + clientSentence);
+
+			// Send unique ID
+			if (inFromClient.readLine() == "IDrequest") {
+				outToClient.writeBytes(Integer.toString(id));
+			}
+
 		} catch (IOException e1) {
 			e1.printStackTrace();
 		}
