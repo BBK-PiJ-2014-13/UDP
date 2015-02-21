@@ -13,6 +13,7 @@ public class Client {
 		String sentence = null;
 		int id;
 		int portNumber = 4444;
+		boolean firstToConnect;
 
 		try {
 			
@@ -24,12 +25,15 @@ public class Client {
 			BufferedReader inFromServer = new BufferedReader(
 					new InputStreamReader(socket.getInputStream()));
 			
-			// TODO Ask for Unique ID
+			// Ask for Unique ID
 			outToServer.writeBytes("IDrequest");
 			id = Integer.parseInt(inFromServer.readLine());
 			
+			// Ask if its first to connect
+			outToServer.writeBytes("firstToConnect");
+			firstToConnect = Boolean.parseBoolean(inFromServer.readLine());
+			
 			socket.close();
-			// TODO Ask if its first to connect
 			// TODO Open UDP connection to server
 			// Send or receive audio
 		} catch (UnknownHostException e) {
