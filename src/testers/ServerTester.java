@@ -2,6 +2,6 @@ package testers;
 
 import core.Server;
 
-public class ServerTester {
+public class ServerTester extends BasicTester {
 
 }
