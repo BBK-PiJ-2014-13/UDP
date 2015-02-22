@@ -26,6 +26,7 @@ public class Client {
 			// Connect to server
 			Socket socket = new Socket(hostName, portNumber);
 
+			// Declare readers and writers
 			DataOutputStream outToServer = new DataOutputStream(
 					socket.getOutputStream());
 			BufferedReader inFromServer = new BufferedReader(
