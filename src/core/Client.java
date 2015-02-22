@@ -47,6 +47,8 @@ public class Client {
 			InetAddress IPAddress = InetAddress.getByName("localhost");
 			byte[] sendData = new byte[1024];
 			byte[] receiveData = new byte[1024];
+
+			// Send audio
 			if (firstToConnect) {
 				DatagramPacket sendPacket = new DatagramPacket(sendData,
 						sendData.length, IPAddress, portNumber);
@@ -55,7 +57,10 @@ public class Client {
 				InputStream targetStream = new FileInputStream(audioFile);
 				targetStream.read(sendData);
 				targetStream.close();
-			} else {
+			}
+
+			// Receive audio
+			else {
 				DatagramPacket receivePacket = new DatagramPacket(receiveData,
 						receiveData.length);
 				UDPsocket.receive(receivePacket);

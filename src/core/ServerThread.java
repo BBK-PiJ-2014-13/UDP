@@ -2,7 +2,11 @@ package core;
 
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
@@ -40,35 +44,40 @@ public class ServerThread extends Thread {
 				outToClient.writeBytes(Boolean.toString(isFirstToConnect));
 			}
 
-			// TODO Listen to UDP connection
-			DatagramSocket serverSocket = new DatagramSocket(4444);
+			socket.close();
+
+			// UDP
+			DatagramSocket UDPSocket = new DatagramSocket(4444);
 			byte[] receiveData = new byte[1024];
 			byte[] sendData = new byte[1024];
-			while (true) {
-				DatagramPacket receivePacket = new DatagramPacket(receiveData,
-						receiveData.length);
-				serverSocket.receive(receivePacket);
-				String sentence = new String(receivePacket.getData());
-				System.out.println("RECEIVED: " + sentence);
-				InetAddress IPAddress = receivePacket.getAddress();
-				int port = receivePacket.getPort();
-				String capitalizedSentence = sentence.toUpperCase();
-				sendData = capitalizedSentence.getBytes();
+			int port = 0;
+
+			DatagramPacket receivePacket = new DatagramPacket(receiveData,
+					receiveData.length);
+			UDPSocket.receive(receivePacket);
+			InetAddress IPAddress = receivePacket.getAddress();
+			port = receivePacket.getPort();
+			receivePacket.getData();
+			// Receive audio
+			if (isFirstToConnect) {
+				FileOutputStream fileOutputStream = new FileOutputStream(
+						"serverInputFile.mp3");
+				fileOutputStream.write(receivePacket.getData());
+				fileOutputStream.close();
+			}
+
+			// Send audio
+			else {
 				DatagramPacket sendPacket = new DatagramPacket(sendData,
 						sendData.length, IPAddress, port);
-				serverSocket.send(sendPacket);
+				UDPSocket.send(sendPacket);
 			}
+			UDPSocket.close();
 
 		} catch (IOException e1) {
 			e1.printStackTrace();
 		}
 
-		try {
-			socket.close();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 	}
 
 }
