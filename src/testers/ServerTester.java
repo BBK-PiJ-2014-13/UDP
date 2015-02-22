@@ -11,9 +11,8 @@ public class ServerTester extends BasicTester {
 	 */
 	@Test
 	public void mainTester () {
-		Server server = new Server();
 		String[] args = new String[] {"4444"};
-		server.main(args);
+		Server.main(args);
 		test();
 	}
 }
