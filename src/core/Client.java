@@ -4,6 +4,9 @@ import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.net.DatagramPacket;
+import java.net.DatagramSocket;
+import java.net.InetAddress;
 import java.net.Socket;
 import java.net.UnknownHostException;
 
@@ -18,22 +21,39 @@ public class Client {
 		try {
 			// Connect to server
 			Socket socket = new Socket(hostName, portNumber);
-			
+
 			DataOutputStream outToServer = new DataOutputStream(
 					socket.getOutputStream());
 			BufferedReader inFromServer = new BufferedReader(
 					new InputStreamReader(socket.getInputStream()));
-			
+
 			// Ask for Unique ID
 			outToServer.writeBytes("IDrequest");
 			id = Integer.parseInt(inFromServer.readLine());
-			
+
 			// Ask if its first to connect
 			outToServer.writeBytes("firstToConnectRequest");
 			firstToConnect = Boolean.parseBoolean(inFromServer.readLine());
 			
 			socket.close();
+
 			// TODO Open UDP connection to server
+			DatagramSocket UDPsocket = new DatagramSocket();
+			InetAddress IPAddress = InetAddress.getByName("localhost");
+			byte[] sendData = new byte[1024];
+			byte[] receiveData = new byte[1024];
+			if (firstToConnect) {
+				DatagramPacket sendPacket = new DatagramPacket(sendData, sendData.length, IPAddress, portNumber);
+				UDPsocket.send(sendPacket);
+			} else {
+				DatagramPacket receivePacket = new DatagramPacket(receiveData, receiveData.length);
+				UDPsocket.receive(receivePacket);
+			}
+			UDPsocket.close();
+			
+
+			
+
 			// TODO Send or receive audio
 		} catch (UnknownHostException e) {
 			// TODO Auto-generated catch block
