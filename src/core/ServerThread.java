@@ -32,7 +32,10 @@ public class ServerThread extends Thread {
 				outToClient.writeBytes(Integer.toString(id));
 			}
 
-			// TODO Tell client if its sender or receiver
+			// Indicate to client if it is a sender or receiver process
+			if (inFromClient.readLine() == "firstToConnectRequest") {
+				outToClient.writeBytes(Boolean.toString(isFirstToConnect));
+			}
 
 		} catch (IOException e1) {
 			e1.printStackTrace();
