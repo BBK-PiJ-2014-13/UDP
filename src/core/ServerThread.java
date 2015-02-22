@@ -4,6 +4,9 @@ import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.net.DatagramPacket;
+import java.net.DatagramSocket;
+import java.net.InetAddress;
 import java.net.Socket;
 
 public class ServerThread extends Thread {
@@ -36,11 +39,31 @@ public class ServerThread extends Thread {
 			if (inFromClient.readLine() == "firstToConnectRequest") {
 				outToClient.writeBytes(Boolean.toString(isFirstToConnect));
 			}
+			
+			// TODO Listen to UDP connection
+			DatagramSocket serverSocket = new DatagramSocket(4444);
+			byte[] receiveData = new byte[1024];
+            byte[] sendData = new byte[1024];
+            while(true) {
+            	DatagramPacket receivePacket = new DatagramPacket(receiveData, receiveData.length);
+            	serverSocket.receive(receivePacket);
+            	String sentence = new String( receivePacket.getData());
+                System.out.println("RECEIVED: " + sentence);
+                InetAddress IPAddress = receivePacket.getAddress();
+                int port = receivePacket.getPort();
+                String capitalizedSentence = sentence.toUpperCase();
+                sendData = capitalizedSentence.getBytes();
+                DatagramPacket sendPacket =
+                new DatagramPacket(sendData, sendData.length, IPAddress, port);
+                serverSocket.send(sendPacket);
+            }
 
 		} catch (IOException e1) {
 			e1.printStackTrace();
 		}
-		// TODO Listen to UDP connection
+
+		
+		
 		// TODO Tell client to connect over UDP
 		// TODO Relay Audio data
 		try {
