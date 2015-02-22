@@ -22,6 +22,7 @@ public class Server {
 				}
 				nextID++;
 			}
+			serverSocket.close();
 		} catch (IOException e) {
 			System.err.println("Could not listen on port " + portNumber);
             System.exit(-1);
