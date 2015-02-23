@@ -5,7 +5,7 @@ import java.net.ServerSocket;
 
 public class Server {
 	public static void main(String[] args) {
-		int portNumber = 4442;
+		int portNumber = Integer.parseInt(args[0]);
 		boolean listening = true;
 		int nextID = 0;
 		boolean hasFirstConnection = false;
