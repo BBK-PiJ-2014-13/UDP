@@ -25,6 +25,12 @@ public class Client {
 		System.out.println("New thread opened");
 
 		try {
+			
+			System.out.println("=================================");
+			System.out.println("Started a client");
+			System.out.println("=================================");
+			System.out.println();
+			
 			// Connect to server
 			Socket socket = new Socket(hostName, portNumber);
 
