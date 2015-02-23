@@ -30,6 +30,8 @@ public class ServerThread extends Thread {
 
 		System.out.println("=================================");
 		System.out.println("Started a server thread");
+		System.out.println("ID: " + id);
+		System.out.println("isFirstToCOnnect: " + isFirstToConnect);
 		System.out.println("=================================");
 		System.out.println();
 

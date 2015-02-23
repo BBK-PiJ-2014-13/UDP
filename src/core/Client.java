@@ -20,7 +20,7 @@ public class Client {
 		String sentence = null;
 		int id;
 		int portNumber = Integer.parseInt(args[0]);
-		boolean firstToConnect;
+		boolean isFirstToConnect;
 		
 		try {
 			
@@ -56,7 +56,11 @@ public class Client {
 			System.out.println("=================================");
 			System.out.println();
 			outToServer.writeBytes("firstToConnectRequest" + "\n");
-			firstToConnect = Boolean.parseBoolean(inFromServer.readLine());
+			isFirstToConnect = Boolean.parseBoolean(inFromServer.readLine());
+			System.out.println("=================================");
+			System.out.println("Client: Received firstToConnect answer: " + isFirstToConnect);
+			System.out.println("=================================");
+			System.out.println();
 
 			socket.close();
 
@@ -67,7 +71,7 @@ public class Client {
 			byte[] receiveData = new byte[1024];
 
 			// Send audio
-			if (firstToConnect) {
+			if (isFirstToConnect) {
 				DatagramPacket sendPacket = new DatagramPacket(sendData,
 						sendData.length, IPAddress, portNumber);
 				UDPsocket.send(sendPacket);

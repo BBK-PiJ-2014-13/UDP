@@ -18,11 +18,13 @@ public class Server {
 		try {
 			ServerSocket serverSocket = new ServerSocket(portNumber);
 			while (listening) {
+//				System.out.println("hasFirstConnection: " + hasFirstConnection);
 				if (!hasFirstConnection) {
+					System.out.println("gets called");
 					new ServerThread(serverSocket.accept(), nextID, true).start();
 					hasFirstConnection = true;
 				} else {
-					new ServerThread(serverSocket.accept(), nextID, false).start();
+//					new ServerThread(serverSocket.accept(), nextID, false).start();
 				}
 				nextID++;
 			}
