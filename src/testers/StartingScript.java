@@ -1,7 +1,5 @@
-package core;
+package testers;
 
-import testers.ClientTester;
-import testers.ServerTester;
 
 /**
  * @author Ilya Ivanov
