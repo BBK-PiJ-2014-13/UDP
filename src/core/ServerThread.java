@@ -50,7 +50,11 @@ public class ServerThread extends Thread {
 
 			// Indicate to client if it is a sender or receiver process
 			if (inFromClient.readLine() == "firstToConnectRequest") {
-				outToClient.writeBytes(Boolean.toString(isFirstToConnect));
+				outToClient.writeBytes(Boolean.toString(isFirstToConnect + "\n"));
+				System.out.println("=================================");
+				System.out.println("Server: firstToConnectanswer is:" + isFirstToConnect);
+				System.out.println("=================================");
+				System.out.println();
 			}
 
 			socket.close();

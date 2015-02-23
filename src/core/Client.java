@@ -51,6 +51,10 @@ public class Client {
 			System.out.println();
 
 			// Ask if its first to connect
+			System.out.println("=================================");
+			System.out.println("Client: Asked if first to Connect");
+			System.out.println("=================================");
+			System.out.println();
 			outToServer.writeBytes("firstToConnectRequest" + "\n");
 			firstToConnect = Boolean.parseBoolean(inFromServer.readLine());
 
