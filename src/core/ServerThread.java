@@ -27,6 +27,12 @@ public class ServerThread extends Thread {
 	}
 
 	public void run() {
+		
+		System.out.println("=================================");
+		System.out.println("Started a server thread");
+		System.out.println("=================================");
+		System.out.println();
+		
 		try {
 			BufferedReader inFromClient = new BufferedReader(
 					new InputStreamReader(socket.getInputStream()));
