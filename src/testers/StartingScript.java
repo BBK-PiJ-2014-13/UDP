@@ -1,6 +1,5 @@
 package testers;
 
-
 /**
  * @author Ilya Ivanov
  *
@@ -17,5 +16,9 @@ public class StartingScript {
 		// Start a client
 		ClientTester clientTester = new ClientTester(portnumber);
 		clientTester.start();
+
+//		// Start a second client
+//		ClientTester clientTester2 = new ClientTester(portnumber);
+//		clientTester.start();
 	}
 }
