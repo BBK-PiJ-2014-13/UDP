@@ -39,7 +39,7 @@ public class Client {
 					new InputStreamReader(socket.getInputStream()));
 
 			// Ask for Unique ID
-			outToServer.writeBytes("IDrequest");
+			outToServer.writeBytes("IDrequest\n");
 			id = Integer.parseInt(inFromServer.readLine());
 
 			// Ask if its first to connect
