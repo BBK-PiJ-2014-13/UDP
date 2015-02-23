@@ -40,7 +40,8 @@ public class ServerThread extends Thread {
 					socket.getOutputStream());
 
 			// Send unique ID
-			if (inFromClient.readLine() == "IDrequest") {
+			if (inFromClient.readLine().equals("IDrequest")) {
+				System.out.println("gets called");
 				outToClient.writeBytes(Integer.toString(id));
 			}
 
