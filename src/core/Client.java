@@ -40,7 +40,15 @@ public class Client {
 
 			// Ask for Unique ID
 			outToServer.writeBytes("IDrequest\n");
+			System.out.println("=================================");
+			System.out.println("Ask for a unique ID");
+			System.out.println("=================================");
+			System.out.println();
 			id = Integer.parseInt(inFromServer.readLine());
+			System.out.println("=================================");
+			System.out.println("Unique ID received:" + id);
+			System.out.println("=================================");
+			System.out.println();
 
 			// Ask if its first to connect
 			outToServer.writeBytes("firstToConnectRequest");

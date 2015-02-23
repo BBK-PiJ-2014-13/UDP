@@ -41,8 +41,11 @@ public class ServerThread extends Thread {
 
 			// Send unique ID
 			if (inFromClient.readLine().equals("IDrequest")) {
-				System.out.println("gets called");
-				outToClient.writeBytes(Integer.toString(id));
+				outToClient.writeBytes(Integer.toString(id) + "\n");
+				System.out.println("=================================");
+				System.out.println("Unique id sent: " + id);
+				System.out.println("=================================");
+				System.out.println();
 			}
 
 			// Indicate to client if it is a sender or receiver process
