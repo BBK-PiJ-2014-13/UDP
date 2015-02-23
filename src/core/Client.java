@@ -19,8 +19,10 @@ public class Client {
 		String hostName = "localhost";
 		String sentence = null;
 		int id;
-		int portNumber = 4444;
+		int portNumber = 4442;
 		boolean firstToConnect;
+		
+		System.out.println("New thread opened");
 
 		try {
 			// Connect to server
