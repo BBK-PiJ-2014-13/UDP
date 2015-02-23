@@ -51,7 +51,7 @@ public class Client {
 			System.out.println();
 
 			// Ask if its first to connect
-			outToServer.writeBytes("firstToConnectRequest");
+			outToServer.writeBytes("firstToConnectRequest" + "\n");
 			firstToConnect = Boolean.parseBoolean(inFromServer.readLine());
 
 			socket.close();
