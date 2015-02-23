@@ -27,12 +27,12 @@ public class ServerThread extends Thread {
 	}
 
 	public void run() {
-		
+
 		System.out.println("=================================");
 		System.out.println("Started a server thread");
 		System.out.println("=================================");
 		System.out.println();
-		
+
 		try {
 			BufferedReader inFromClient = new BufferedReader(
 					new InputStreamReader(socket.getInputStream()));
@@ -40,8 +40,11 @@ public class ServerThread extends Thread {
 					socket.getOutputStream());
 
 			// Send unique ID
-			if (inFromClient.readLine() == "IDrequest") {
-				outToClient.writeBytes(Integer.toString(id));
+			while (true) {
+				if (inFromClient.readLine() == "IDrequest") {
+					outToClient.writeBytes(Integer.toString(id));
+					break;
+				}
 			}
 
 			// Indicate to client if it is a sender or receiver process
