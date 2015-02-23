@@ -11,14 +11,13 @@ import testers.ServerTester;
 public class StartingScript {
 	public static void main(String[] args) {
 		String portnumber = "1099";
-		String[] arguments = new String[] { portnumber };
 
 		// Start a server
-		ServerTester serverTester = new ServerTester();
+		ServerTester serverTester = new ServerTester(portnumber);
 		serverTester.start();
 
 		// Start a client
-		ClientTester clientTester = new ClientTester();
+		ClientTester clientTester = new ClientTester(portnumber);
 		clientTester.start();
 	}
 }
