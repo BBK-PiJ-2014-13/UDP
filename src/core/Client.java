@@ -22,8 +22,6 @@ public class Client {
 		int portNumber = Integer.parseInt(args[0]);
 		boolean firstToConnect;
 		
-		System.out.println("New thread opened");
-
 		try {
 			
 			System.out.println("=================================");
