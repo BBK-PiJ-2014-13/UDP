@@ -10,6 +10,11 @@ public class Server {
 		int nextID = 0;
 		boolean hasFirstConnection = false;
 		
+		System.out.println("=================================");
+		System.out.println("Started a server");
+		System.out.println("=================================");
+		System.out.println();
+		
 		try {
 			ServerSocket serverSocket = new ServerSocket(portNumber);
 			while (listening) {

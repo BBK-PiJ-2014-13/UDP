@@ -28,7 +28,6 @@ public class ServerThread extends Thread {
 
 	public void run() {
 		try {
-
 			BufferedReader inFromClient = new BufferedReader(
 					new InputStreamReader(socket.getInputStream()));
 			DataOutputStream outToClient = new DataOutputStream(
