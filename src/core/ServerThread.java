@@ -40,11 +40,8 @@ public class ServerThread extends Thread {
 					socket.getOutputStream());
 
 			// Send unique ID
-			while (true) {
-				if (inFromClient.readLine() == "IDrequest") {
-					outToClient.writeBytes(Integer.toString(id));
-					break;
-				}
+			if (inFromClient.readLine() == "IDrequest") {
+				outToClient.writeBytes(Integer.toString(id));
 			}
 
 			// Indicate to client if it is a sender or receiver process
