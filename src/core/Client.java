@@ -20,15 +20,15 @@ public class Client {
 		String sentence = null;
 		int id;
 		int portNumber = Integer.parseInt(args[0]);
-		boolean isFirstToConnect;
-		
+		boolean isFirstToConnect = false;
+
 		try {
-			
+
 			System.out.println("=================================");
 			System.out.println("Started a client");
 			System.out.println("=================================");
 			System.out.println();
-			
+
 			// Connect to server
 			Socket socket = new Socket(hostName, portNumber);
 
@@ -58,7 +58,8 @@ public class Client {
 			outToServer.writeBytes("firstToConnectRequest" + "\n");
 			isFirstToConnect = Boolean.parseBoolean(inFromServer.readLine());
 			System.out.println("=================================");
-			System.out.println("Client: Received firstToConnect answer: " + isFirstToConnect);
+			System.out.println("Client: Received firstToConnect answer: "
+					+ isFirstToConnect);
 			System.out.println("=================================");
 			System.out.println();
 

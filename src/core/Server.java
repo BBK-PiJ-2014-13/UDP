@@ -20,7 +20,6 @@ public class Server {
 			while (listening) {
 //				System.out.println("hasFirstConnection: " + hasFirstConnection);
 				if (!hasFirstConnection) {
-					System.out.println("gets called");
 					new ServerThread(serverSocket.accept(), nextID, true).start();
 					hasFirstConnection = true;
 				} else {
