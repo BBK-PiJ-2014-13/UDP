@@ -12,6 +12,7 @@ import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
 import java.net.Socket;
+import java.util.Arrays;
 
 public class ServerThread extends Thread {
 	private Socket TCPSocket = null;
@@ -80,27 +81,26 @@ public class ServerThread extends Thread {
 			UDPSocket.receive(receivePacket);
 			InetAddress IPAddress = receivePacket.getAddress();
 			port = receivePacket.getPort();
-			receivePacket.getData();
 
 			// Receive audio
 			if (isFirstToConnect) {
-				FileOutputStream fileOutputStream = new FileOutputStream(
-						"serverInputFile.mp3");
+				File serverFile = new File("server" + id + 
+						"inputFile.mp3");
+				FileOutputStream fileOutputStream = new FileOutputStream(serverFile);
 				fileOutputStream.write(receivePacket.getData());
 				fileOutputStream.close();
 				System.out.println("=================================");
 				System.out
-						.println("SERVER THREAD: Received data and wrote it to file: "
-								+ "serverInputFile.mp3");
+						.println("Server" + id + ": " + "received file");
 				System.out.println("=================================");
 				System.out.println();
 			}
 
 			// Send audio
 			else {
-				DatagramPacket sendPacket = new DatagramPacket(sendData,
-						sendData.length, IPAddress, port);
-				UDPSocket.send(sendPacket);
+//				DatagramPacket sendPacket = new DatagramPacket(sendData,
+//						sendData.length, IPAddress, port);
+//				UDPSocket.send(sendPacket);
 			}
 			UDPSocket.close();
 

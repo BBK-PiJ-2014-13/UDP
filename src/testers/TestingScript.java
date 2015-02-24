@@ -5,9 +5,9 @@ package testers;
  *
  *         Launches main methods of clients and server
  */
-public class StartingScript {
+public class TestingScript {
 	public static void main(String[] args) {
-		String portnumber = "1077";
+		String portnumber = "1062";
 
 		// Start a server
 		ServerTester serverTester = new ServerTester(portnumber);

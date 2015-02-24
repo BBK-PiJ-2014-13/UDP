@@ -13,6 +13,7 @@ import java.net.DatagramSocket;
 import java.net.InetAddress;
 import java.net.Socket;
 import java.net.UnknownHostException;
+import java.util.Arrays;
 
 public class Client {
 	public static void main(String[] args) {
@@ -72,24 +73,32 @@ public class Client {
 
 			// Send audio
 			if (isFirstToConnect) {
-				DatagramPacket sendPacket = new DatagramPacket(sendData,
-						sendData.length, IPAddress, portNumber);
 				File audioFile = new File("outputFile.mp3");
 				InputStream targetStream = new FileInputStream(audioFile);
+				System.out.println("sendData before sending: ");
+				System.out.println(Arrays.toString(sendData));
 				targetStream.read(sendData);
+				System.out.println("sendData size after: " + sendData.length);
+				System.out.println(Arrays.toString(sendData));
+				DatagramPacket sendPacket = new DatagramPacket(sendData,
+						sendData.length, IPAddress, portNumber);
 				UDPsocket.send(sendPacket);
 				targetStream.close();
+				System.out.println("=================================");
+				System.out.println("CLIENT: sent file");
+				System.out.println("=================================");
+				System.out.println();
 			}
 
 			// Receive audio
 			else {
-				DatagramPacket receivePacket = new DatagramPacket(receiveData,
-						receiveData.length);
-				UDPsocket.receive(receivePacket);
-				FileOutputStream fileOutputStream = new FileOutputStream(
-						"inputFile.mp3");
-				fileOutputStream.write(receivePacket.getData());
-				fileOutputStream.close();
+//				DatagramPacket receivePacket = new DatagramPacket(receiveData,
+//						receiveData.length);
+//				UDPsocket.receive(receivePacket);
+//				FileOutputStream fileOutputStream = new FileOutputStream(
+//						"inputFile.mp3");
+//				fileOutputStream.write(receivePacket.getData());
+//				fileOutputStream.close();
 			}
 			UDPsocket.close();
 		} catch (UnknownHostException e) {
