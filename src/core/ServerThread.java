@@ -52,17 +52,25 @@ public class ServerThread extends Thread {
 
 			// Indicate to client if it is a sender or receiver process
 			if (inFromClient.readLine().equals("firstToConnectRequest")) {
-				System.out.println("gets called");
-				outToClient.writeBytes(Boolean.toString(isFirstToConnect) + "\n");
+				outToClient.writeBytes(Boolean.toString(isFirstToConnect)
+						+ "\n");
 				System.out.println("=================================");
-				System.out.println("Server: firstToConnectanswer is:" + isFirstToConnect);
+				System.out.println("Server: firstToConnectanswer is:"
+						+ isFirstToConnect);
 				System.out.println("=================================");
 				System.out.println();
 			}
 			TCPSocket.close();
 
 			// UDP
-			DatagramSocket UDPSocket = new DatagramSocket(TCPSocket.getLocalPort());
+			DatagramSocket UDPSocket = new DatagramSocket(
+					TCPSocket.getLocalPort());
+			System.out.println("=================================");
+			System.out
+					.println("SERVER THREAD: opened a UDP connection using port"
+							+ TCPSocket.getLocalPort());
+			System.out.println("=================================");
+			System.out.println();
 			byte[] receiveData = new byte[1024];
 			byte[] sendData = new byte[1024];
 			int port = 0;
@@ -73,12 +81,19 @@ public class ServerThread extends Thread {
 			InetAddress IPAddress = receivePacket.getAddress();
 			port = receivePacket.getPort();
 			receivePacket.getData();
+
 			// Receive audio
 			if (isFirstToConnect) {
 				FileOutputStream fileOutputStream = new FileOutputStream(
 						"serverInputFile.mp3");
 				fileOutputStream.write(receivePacket.getData());
 				fileOutputStream.close();
+				System.out.println("=================================");
+				System.out
+						.println("SERVER THREAD: Received data and wrote it to file: "
+								+ "serverInputFile.mp3");
+				System.out.println("=================================");
+				System.out.println();
 			}
 
 			// Send audio

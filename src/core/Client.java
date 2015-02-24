@@ -17,7 +17,6 @@ import java.net.UnknownHostException;
 public class Client {
 	public static void main(String[] args) {
 		String hostName = "localhost";
-		String sentence = null;
 		int id;
 		int portNumber = Integer.parseInt(args[0]);
 		boolean isFirstToConnect = false;
@@ -75,10 +74,10 @@ public class Client {
 			if (isFirstToConnect) {
 				DatagramPacket sendPacket = new DatagramPacket(sendData,
 						sendData.length, IPAddress, portNumber);
-				UDPsocket.send(sendPacket);
-				File audioFile = new File("Non, je ne regrette rien.mp3");
+				File audioFile = new File("outputFile.mp3");
 				InputStream targetStream = new FileInputStream(audioFile);
 				targetStream.read(sendData);
+				UDPsocket.send(sendPacket);
 				targetStream.close();
 			}
 
