@@ -14,14 +14,14 @@ import java.net.InetAddress;
 import java.net.Socket;
 
 public class ServerThread extends Thread {
-	private Socket socket = null;
+	private Socket TCPSocket = null;
 	String clientSentence = null;
 	int id = 0;
 	boolean isFirstToConnect;
 
 	public ServerThread(Socket socket, int id, boolean isFirstToConnect) {
 		super("ServerThread");
-		this.socket = socket;
+		this.TCPSocket = socket;
 		this.id = id;
 		this.isFirstToConnect = isFirstToConnect;
 	}
@@ -37,9 +37,9 @@ public class ServerThread extends Thread {
 
 		try {
 			BufferedReader inFromClient = new BufferedReader(
-					new InputStreamReader(socket.getInputStream()));
+					new InputStreamReader(TCPSocket.getInputStream()));
 			DataOutputStream outToClient = new DataOutputStream(
-					socket.getOutputStream());
+					TCPSocket.getOutputStream());
 
 			// Send unique ID
 			if (inFromClient.readLine().equals("IDrequest")) {
@@ -59,10 +59,10 @@ public class ServerThread extends Thread {
 				System.out.println("=================================");
 				System.out.println();
 			}
-			socket.close();
+			TCPSocket.close();
 
 			// UDP
-			DatagramSocket UDPSocket = new DatagramSocket(socket.getLocalPort());
+			DatagramSocket UDPSocket = new DatagramSocket(TCPSocket.getLocalPort());
 			byte[] receiveData = new byte[1024];
 			byte[] sendData = new byte[1024];
 			int port = 0;
