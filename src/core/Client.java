@@ -67,38 +67,44 @@ public class Client {
 
 			// Open UDP connection to server
 			DatagramSocket UDPsocket = new DatagramSocket();
-			InetAddress IPAddress = InetAddress.getByName("localhost");
-			byte[] sendData = new byte[1024];
-			byte[] receiveData = new byte[1024];
 
-			// Send audio
-			if (isFirstToConnect) {
-				File audioFile = new File("outputFile.jpg");
-				InputStream targetStream = new FileInputStream(audioFile);
-				System.out.println("sendData before sending: ");
-				System.out.println(Arrays.toString(sendData));
-				targetStream.read(sendData);
-				System.out.println("sendData size after: " + sendData.length);
-				System.out.println(Arrays.toString(sendData));
-				DatagramPacket sendPacket = new DatagramPacket(sendData,
-						sendData.length, IPAddress, portNumber);
-				UDPsocket.send(sendPacket);
-				targetStream.close();
-				System.out.println("=================================");
-				System.out.println("CLIENT: sent file");
-				System.out.println("=================================");
-				System.out.println();
-			}
+			while (true) {
+				InetAddress IPAddress = InetAddress.getByName("localhost");
+				byte[] sendData = new byte[1024];
+				byte[] receiveData = new byte[1024];
 
-			// Receive audio
-			else {
-//				DatagramPacket receivePacket = new DatagramPacket(receiveData,
-//						receiveData.length);
-//				UDPsocket.receive(receivePacket);
-//				FileOutputStream fileOutputStream = new FileOutputStream(
-//						"inputFile.mp3");
-//				fileOutputStream.write(receivePacket.getData());
-//				fileOutputStream.close();
+				// Send audio
+				if (isFirstToConnect) {
+					File audioFile = new File("outputFile.jpg");
+					InputStream targetStream = new FileInputStream(audioFile);
+					System.out.println("sendData before sending: ");
+					System.out.println(Arrays.toString(sendData));
+					targetStream.read(sendData);
+					System.out.println("sendData size after: "
+							+ sendData.length);
+					System.out.println(Arrays.toString(sendData));
+					DatagramPacket sendPacket = new DatagramPacket(sendData,
+							sendData.length, IPAddress, portNumber);
+					UDPsocket.send(sendPacket);
+					targetStream.close();
+					System.out.println("=================================");
+					System.out.println("CLIENT: sent file");
+					System.out.println("=================================");
+					System.out.println();
+				}
+
+				// Receive audio
+				else {
+					// DatagramPacket receivePacket = new
+					// DatagramPacket(receiveData,
+					// receiveData.length);
+					// UDPsocket.receive(receivePacket);
+					// FileOutputStream fileOutputStream = new FileOutputStream(
+					// "inputFile.mp3");
+					// fileOutputStream.write(receivePacket.getData());
+					// fileOutputStream.close();
+				}
+				break;
 			}
 			UDPsocket.close();
 		} catch (UnknownHostException e) {
