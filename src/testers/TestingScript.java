@@ -7,7 +7,7 @@ package testers;
  */
 public class TestingScript {
 	public static void main(String[] args) {
-		String portnumber = "1062";
+		String portnumber = "1059";
 
 		// Start a server
 		ServerTester serverTester = new ServerTester(portnumber);

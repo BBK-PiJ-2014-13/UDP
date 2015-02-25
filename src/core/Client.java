@@ -73,7 +73,7 @@ public class Client {
 
 			// Send audio
 			if (isFirstToConnect) {
-				File audioFile = new File("outputFile.mp3");
+				File audioFile = new File("outputFile.jpg");
 				InputStream targetStream = new FileInputStream(audioFile);
 				System.out.println("sendData before sending: ");
 				System.out.println(Arrays.toString(sendData));
