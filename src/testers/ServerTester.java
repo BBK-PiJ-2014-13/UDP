@@ -1,5 +1,6 @@
 package testers;
 
+import core.Client;
 import core.Server;
 
 /**
@@ -8,13 +9,13 @@ import core.Server;
  *         Tests main methods in Server and Client
  */
 public class ServerTester extends Thread {
-	String portnumber;
+	String portNumber;
 
-	public ServerTester(String portumber) {
-		this.portnumber = portumber;
+	public ServerTester(String portNumber) {
+		this.portNumber = portNumber;
 	}
-	
+
 	public void run() {
-		Server.main(new String[] {portnumber});
+		Server.main(new String[] { portNumber });
 	}
 }

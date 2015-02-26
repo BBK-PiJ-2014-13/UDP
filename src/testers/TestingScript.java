@@ -15,7 +15,7 @@ public class TestingScript {
 		serverTester.start();
 
 		// Start a client
-		ClientTester clientTester = new ClientTester(portNumber);
+		ClientTester clientTester = new ClientTester(fileName, portNumber);
 		clientTester.start();
 
 	}
