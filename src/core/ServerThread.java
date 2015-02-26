@@ -60,10 +60,6 @@ public class ServerThread extends Thread {
 			
 			// Receive name of file
 			fileName = inFromClient.readLine();
-			System.out.println("=================================");
-			System.out.println("SERVER" + id + " : received file: " + fileName);
-			System.out.println("=================================");
-			System.out.println();
 			
 			TCPSocket.close();
 
@@ -72,15 +68,7 @@ public class ServerThread extends Thread {
 					TCPSocket.getLocalPort());
 			boolean keepGoing = true;
 			// UDPSocket.setSoTimeout(1000);
-
-			System.out.println("=================================");
-			System.out
-					.println("SERVER THREAD: opened a UDP connection using port"
-							+ TCPSocket.getLocalPort());
-			System.out.println("=================================");
-			System.out.println();
-
-			File serverFile = new File("server" + id + "inputFile.mp3");
+			File serverFile = new File("server" + id + fileName);
 			FileOutputStream fileOutputStream = new FileOutputStream(serverFile);
 
 			// Receive audio
