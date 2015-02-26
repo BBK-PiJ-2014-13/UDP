@@ -68,7 +68,7 @@ public class ServerThread extends Thread {
 					TCPSocket.getLocalPort());
 			boolean keepGoing = true;
 			UDPSocket.setSoTimeout(1000);
-			
+
 			System.out.println("=================================");
 			System.out
 					.println("SERVER THREAD: opened a UDP connection using port"
@@ -76,45 +76,29 @@ public class ServerThread extends Thread {
 			System.out.println("=================================");
 			System.out.println();
 
+			File serverFile = new File("server" + id + "inputFile.jpg");
+			FileOutputStream fileOutputStream = new FileOutputStream(serverFile);
+
+			// Receive audio
 			while (keepGoing) {
 				byte[] receiveData = new byte[1024];
-				byte[] sendData = new byte[1024];
-				int port = 0;
 
 				DatagramPacket receivePacket = new DatagramPacket(receiveData,
 						receiveData.length);
 				UDPSocket.receive(receivePacket);
-				InetAddress IPAddress = receivePacket.getAddress();
-				port = receivePacket.getPort();
 
-				// Receive audio
 				if (isFirstToConnect) {
-					
 					// If done receiving, stop the while loop
-					if (receivePacket.getData() == null || receivePacket.getData().length == 0) {
+					if (receivePacket.getData() == null
+							|| receivePacket.getData().length == 0) {
 						keepGoing = false;
 					}
-					
-					File serverFile = new File("server" + id + "inputFile.jpg");
-					FileOutputStream fileOutputStream = new FileOutputStream(
-							serverFile);
 					fileOutputStream.write(receivePacket.getData());
-					fileOutputStream.close();
-					
-					System.out.println("=================================");
-					System.out.println("Server" + id + ": " + "received file");
-					System.out.println("=================================");
-					System.out.println();
-				}
 
-				// Send audio
-				else {
-					// DatagramPacket sendPacket = new DatagramPacket(sendData,
-					// sendData.length, IPAddress, port);
-					// UDPSocket.send(sendPacket);
 				}
-				break;
 			}
+			fileOutputStream.close();
+
 			UDPSocket.close();
 
 		} catch (IOException e1) {
@@ -122,5 +106,4 @@ public class ServerThread extends Thread {
 		}
 
 	}
-
 }
