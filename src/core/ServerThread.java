@@ -89,11 +89,18 @@ public class ServerThread extends Thread {
 
 				// Receive audio
 				if (isFirstToConnect) {
+					
+					// If done receiving, stop the while loop
+					if (receivePacket.getData() == null || receivePacket.getData().length == 0) {
+						keepGoing = false;
+					}
+					
 					File serverFile = new File("server" + id + "inputFile.jpg");
 					FileOutputStream fileOutputStream = new FileOutputStream(
 							serverFile);
 					fileOutputStream.write(receivePacket.getData());
 					fileOutputStream.close();
+					
 					System.out.println("=================================");
 					System.out.println("Server" + id + ": " + "received file");
 					System.out.println("=================================");
