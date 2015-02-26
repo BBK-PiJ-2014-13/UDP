@@ -76,7 +76,7 @@ public class ServerThread extends Thread {
 			System.out.println("=================================");
 			System.out.println();
 
-			while (true) {
+			while (keepGoing) {
 				byte[] receiveData = new byte[1024];
 				byte[] sendData = new byte[1024];
 				int port = 0;
