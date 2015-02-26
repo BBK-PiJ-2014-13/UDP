@@ -40,6 +40,9 @@ public class Client {
 			// Ask if its first to connect
 			outToServer.writeBytes("firstToConnectRequest" + "\n");
 			isFirstToConnect = Boolean.parseBoolean(inFromServer.readLine());
+			
+			// Send the name of file to Server
+			outToServer.writeBytes(fileName + "\n");
 
 			TCPsocket.close();
 
@@ -53,7 +56,7 @@ public class Client {
 
 				// Send audio
 				if (isFirstToConnect) {
-					File audioFile = new File("outputFile.mp3");
+					File audioFile = new File(fileName);
 					InputStream targetStream = new FileInputStream(audioFile);
 					while (targetStream.read(sendData) != -1) {
 						DatagramPacket sendPacket = new DatagramPacket(sendData,

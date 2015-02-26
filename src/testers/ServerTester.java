@@ -1,6 +1,5 @@
 package testers;
 
-import core.Client;
 import core.Server;
 
 /**

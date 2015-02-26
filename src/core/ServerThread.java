@@ -17,6 +17,7 @@ import java.util.Arrays;
 public class ServerThread extends Thread {
 	private Socket TCPSocket = null;
 	String clientSentence = null;
+	String fileName;
 	int id = 0;
 	boolean isFirstToConnect;
 
@@ -55,12 +56,15 @@ public class ServerThread extends Thread {
 			if (inFromClient.readLine().equals("firstToConnectRequest")) {
 				outToClient.writeBytes(Boolean.toString(isFirstToConnect)
 						+ "\n");
-				System.out.println("=================================");
-				System.out.println("Server: firstToConnectanswer is:"
-						+ isFirstToConnect);
-				System.out.println("=================================");
-				System.out.println();
 			}
+			
+			// Receive name of file
+			fileName = inFromClient.readLine();
+			System.out.println("=================================");
+			System.out.println("SERVER" + id + " : received file: " + fileName);
+			System.out.println("=================================");
+			System.out.println();
+			
 			TCPSocket.close();
 
 			// UDP
