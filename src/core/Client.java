@@ -50,16 +50,15 @@ public class Client {
 			DatagramSocket UDPsocket = new DatagramSocket();
 
 			InetAddress IPAddress = InetAddress.getByName("localhost");
-			byte[] sendData = new byte[1024];
-			byte[] receiveData = new byte[1024];
+			byte[] buffer = new byte[1024];
 
 			// Send audio
 			if (isFirstToConnect) {
 				File audioFile = new File(fileName);
 				InputStream targetStream = new FileInputStream(audioFile);
-				while (targetStream.read(sendData) != -1) {
-					DatagramPacket sendPacket = new DatagramPacket(sendData,
-							sendData.length, IPAddress, portNumber);
+				while (targetStream.read(buffer) != -1) {
+					DatagramPacket sendPacket = new DatagramPacket(buffer,
+							buffer.length, IPAddress, portNumber);
 					UDPsocket.send(sendPacket);
 				}
 				targetStream.close();
@@ -67,14 +66,7 @@ public class Client {
 
 			// Receive audio
 			else {
-				// DatagramPacket receivePacket = new
-				// DatagramPacket(receiveData,
-				// receiveData.length);
-				// UDPsocket.receive(receivePacket);
-				// FileOutputStream fileOutputStream = new FileOutputStream(
-				// "inputFile.mp3");
-				// fileOutputStream.write(receivePacket.getData());
-				// fileOutputStream.close();
+				
 			}
 			UDPsocket.close();
 		} catch (UnknownHostException e) {
