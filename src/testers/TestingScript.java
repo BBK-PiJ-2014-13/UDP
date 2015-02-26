@@ -7,18 +7,16 @@ package testers;
  */
 public class TestingScript {
 	public static void main(String[] args) {
-		String portnumber = "1054";
+		String fileName = "outputFile.mp3";
+		String portNumber = "1054";
 
 		// Start a server
-		ServerTester serverTester = new ServerTester(portnumber);
+		ServerTester serverTester = new ServerTester(portNumber);
 		serverTester.start();
 
 		// Start a client
-		ClientTester clientTester = new ClientTester(portnumber);
+		ClientTester clientTester = new ClientTester(portNumber);
 		clientTester.start();
 
-//		// Start a second client
-//		ClientTester clientTester2 = new ClientTester(portnumber);
-//		clientTester.start();
 	}
 }

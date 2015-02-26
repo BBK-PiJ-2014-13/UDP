@@ -18,8 +18,9 @@ import java.util.Arrays;
 public class Client {
 	public static void main(String[] args) {
 		String hostName = "localhost";
+		String fileName = args[0];
 		int id;
-		int portNumber = Integer.parseInt(args[0]);
+		int portNumber = Integer.parseInt(args[1]);
 		boolean isFirstToConnect = false;
 
 		try {
