@@ -23,47 +23,24 @@ public class Client {
 		boolean isFirstToConnect = false;
 
 		try {
-
-			System.out.println("=================================");
-			System.out.println("Started a client");
-			System.out.println("=================================");
-			System.out.println();
-
 			// Connect to server
-			Socket socket = new Socket(hostName, portNumber);
+			Socket TCPsocket = new Socket(hostName, portNumber);
 
 			// Declare readers and writers
 			DataOutputStream outToServer = new DataOutputStream(
-					socket.getOutputStream());
+					TCPsocket.getOutputStream());
 			BufferedReader inFromServer = new BufferedReader(
-					new InputStreamReader(socket.getInputStream()));
+					new InputStreamReader(TCPsocket.getInputStream()));
 
 			// Ask for Unique ID
 			outToServer.writeBytes("IDrequest\n");
-			System.out.println("=================================");
-			System.out.println("Ask for a unique ID");
-			System.out.println("=================================");
-			System.out.println();
 			id = Integer.parseInt(inFromServer.readLine());
-			System.out.println("=================================");
-			System.out.println("Unique ID received:" + id);
-			System.out.println("=================================");
-			System.out.println();
 
 			// Ask if its first to connect
-			System.out.println("=================================");
-			System.out.println("Client: Asked if first to Connect");
-			System.out.println("=================================");
-			System.out.println();
 			outToServer.writeBytes("firstToConnectRequest" + "\n");
 			isFirstToConnect = Boolean.parseBoolean(inFromServer.readLine());
-			System.out.println("=================================");
-			System.out.println("Client: Received firstToConnect answer: "
-					+ isFirstToConnect);
-			System.out.println("=================================");
-			System.out.println();
 
-			socket.close();
+			TCPsocket.close();
 
 			// Open UDP connection to server
 			DatagramSocket UDPsocket = new DatagramSocket();
@@ -77,20 +54,11 @@ public class Client {
 				if (isFirstToConnect) {
 					File audioFile = new File("outputFile.jpg");
 					InputStream targetStream = new FileInputStream(audioFile);
-					System.out.println("sendData before sending: ");
-					System.out.println(Arrays.toString(sendData));
 					targetStream.read(sendData);
-					System.out.println("sendData size after: "
-							+ sendData.length);
-					System.out.println(Arrays.toString(sendData));
 					DatagramPacket sendPacket = new DatagramPacket(sendData,
 							sendData.length, IPAddress, portNumber);
 					UDPsocket.send(sendPacket);
 					targetStream.close();
-					System.out.println("=================================");
-					System.out.println("CLIENT: sent file");
-					System.out.println("=================================");
-					System.out.println();
 				}
 
 				// Receive audio

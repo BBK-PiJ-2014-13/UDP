@@ -67,7 +67,7 @@ public class ServerThread extends Thread {
 			DatagramSocket UDPSocket = new DatagramSocket(
 					TCPSocket.getLocalPort());
 			boolean keepGoing = true;
-			UDPSocket.setSoTimeout(1000);
+			// UDPSocket.setSoTimeout(1000);
 
 			System.out.println("=================================");
 			System.out
@@ -87,16 +87,15 @@ public class ServerThread extends Thread {
 						receiveData.length);
 				UDPSocket.receive(receivePacket);
 
-					// If done receiving, stop the while loop
-					if (receivePacket.getData() == null
-							|| receivePacket.getData().length == 0) {
-						keepGoing = false;
-					}
-					fileOutputStream.write(receivePacket.getData());
+				// If done receiving, stop the while loop
+				if (receivePacket.getData() == null
+						|| receivePacket.getData().length == 0) {
+					keepGoing = false;
+				}
+				fileOutputStream.write(receivePacket.getData());
 
 			}
 			fileOutputStream.close();
-
 			UDPSocket.close();
 
 		} catch (IOException e1) {
