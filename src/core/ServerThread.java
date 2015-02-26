@@ -67,7 +67,7 @@ public class ServerThread extends Thread {
 			DatagramSocket UDPSocket = new DatagramSocket(
 					TCPSocket.getLocalPort());
 			boolean keepGoing = true;
-			
+			UDPSocket.setSoTimeout(1000);
 			
 			System.out.println("=================================");
 			System.out
