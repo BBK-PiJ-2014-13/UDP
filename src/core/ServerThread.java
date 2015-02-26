@@ -87,7 +87,6 @@ public class ServerThread extends Thread {
 						receiveData.length);
 				UDPSocket.receive(receivePacket);
 
-				if (isFirstToConnect) {
 					// If done receiving, stop the while loop
 					if (receivePacket.getData() == null
 							|| receivePacket.getData().length == 0) {
@@ -95,7 +94,6 @@ public class ServerThread extends Thread {
 					}
 					fileOutputStream.write(receivePacket.getData());
 
-				}
 			}
 			fileOutputStream.close();
 
