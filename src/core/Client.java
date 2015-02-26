@@ -42,7 +42,7 @@ public class Client {
 
 			TCPsocket.close();
 
-			// Open UDP connection to server
+			// UDP
 			DatagramSocket UDPsocket = new DatagramSocket();
 
 			while (true) {
@@ -54,10 +54,15 @@ public class Client {
 				if (isFirstToConnect) {
 					File audioFile = new File("outputFile.jpg");
 					InputStream targetStream = new FileInputStream(audioFile);
-					targetStream.read(sendData);
-					DatagramPacket sendPacket = new DatagramPacket(sendData,
-							sendData.length, IPAddress, portNumber);
-					UDPsocket.send(sendPacket);
+					while (true) {
+						targetStream.read(sendData);
+						if (sendData == null || sendData.length == 0) {
+							break;
+						}
+						DatagramPacket sendPacket = new DatagramPacket(sendData,
+								sendData.length, IPAddress, portNumber);
+						UDPsocket.send(sendPacket);
+					}
 					targetStream.close();
 				}
 
