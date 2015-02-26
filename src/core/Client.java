@@ -54,11 +54,7 @@ public class Client {
 				if (isFirstToConnect) {
 					File audioFile = new File("outputFile.jpg");
 					InputStream targetStream = new FileInputStream(audioFile);
-					while (true) {
-						targetStream.read(sendData);
-						if (sendData == null || sendData.length == 0) {
-							break;
-						}
+					while (targetStream.read(sendData) != -1) {
 						DatagramPacket sendPacket = new DatagramPacket(sendData,
 								sendData.length, IPAddress, portNumber);
 						UDPsocket.send(sendPacket);
