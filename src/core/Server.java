@@ -5,25 +5,19 @@ import java.net.ServerSocket;
 
 public class Server {
 	public static void main(String[] args) {
-		int portNumber = Integer.parseInt(args[0]);
+		int portNumber = Integer.parseInt(args[1]);
 		boolean listening = true;
 		int nextID = 0;
 		boolean hasFirstConnection = false;
 		
-		System.out.println("=================================");
-		System.out.println("Started a server");
-		System.out.println("=================================");
-		System.out.println();
-		
 		try {
 			ServerSocket serverSocket = new ServerSocket(portNumber);
 			while (listening) {
-//				System.out.println("hasFirstConnection: " + hasFirstConnection);
 				if (!hasFirstConnection) {
-					new ServerThread(serverSocket.accept(), nextID, true).start();
+					new ServerThread(serverSocket.accept(), nextID, true, args[0]).start();
 					hasFirstConnection = true;
 				} else {
-//					new ServerThread(serverSocket.accept(), nextID, false).start();
+					new ServerThread(serverSocket.accept(), nextID, false, args[0]).start();
 				}
 				nextID++;
 			}

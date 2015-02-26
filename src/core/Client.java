@@ -12,6 +12,7 @@ import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
 import java.net.Socket;
+import java.net.SocketTimeoutException;
 import java.net.UnknownHostException;
 import java.util.Arrays;
 
@@ -73,7 +74,14 @@ public class Client {
 					buffer = new byte[1024];
 					DatagramPacket receivePacket = new DatagramPacket(buffer,
 							buffer.length);
-					UDPSocket.receive(receivePacket);
+					
+					try {
+						UDPSocket.receive(receivePacket);
+					} catch (SocketTimeoutException e) {
+						System.out
+								.println("Server" + id + ": Connection timed out");
+						break;
+					}
 
 					// If done receiving, stop the while loop
 					if (receivePacket.getData() == null
@@ -82,7 +90,7 @@ public class Client {
 					}
 					fileOutputStream.write(receivePacket.getData());
 				}
-
+				fileOutputStream.close();
 			}
 			UDPSocket.close();
 		} catch (UnknownHostException e) {
