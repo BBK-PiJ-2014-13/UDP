@@ -17,6 +17,10 @@ public class TestingScript {
 		// Start a client
 		ClientTester clientTester = new ClientTester(fileName, portNumber);
 		clientTester.start();
+		
+		// Start another client
+		ClientTester clientTester2 = new ClientTester(fileName, portNumber);
+		clientTester.start();
 
 	}
 }

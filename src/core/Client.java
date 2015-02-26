@@ -47,28 +47,44 @@ public class Client {
 			TCPsocket.close();
 
 			// UDP
-			DatagramSocket UDPsocket = new DatagramSocket();
-
+			DatagramSocket UDPSocket = new DatagramSocket();
 			InetAddress IPAddress = InetAddress.getByName("localhost");
-			byte[] buffer = new byte[1024];
+			byte[] buffer;
 
 			// Send audio
 			if (isFirstToConnect) {
+				buffer = new byte[1024];
 				File audioFile = new File(fileName);
 				InputStream targetStream = new FileInputStream(audioFile);
 				while (targetStream.read(buffer) != -1) {
 					DatagramPacket sendPacket = new DatagramPacket(buffer,
 							buffer.length, IPAddress, portNumber);
-					UDPsocket.send(sendPacket);
+					UDPSocket.send(sendPacket);
 				}
 				targetStream.close();
 			}
 
 			// Receive audio
 			else {
-				
+				File clientFile = new File("client" + id + fileName);
+				FileOutputStream fileOutputStream = new FileOutputStream(clientFile);
+				boolean keepGoing = true;
+				while (keepGoing) {
+					buffer = new byte[1024];
+					DatagramPacket receivePacket = new DatagramPacket(buffer,
+							buffer.length);
+					UDPSocket.receive(receivePacket);
+
+					// If done receiving, stop the while loop
+					if (receivePacket.getData() == null
+							|| receivePacket.getData().length == 0) {
+						keepGoing = false;
+					}
+					fileOutputStream.write(receivePacket.getData());
+				}
+
 			}
-			UDPsocket.close();
+			UDPSocket.close();
 		} catch (UnknownHostException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
