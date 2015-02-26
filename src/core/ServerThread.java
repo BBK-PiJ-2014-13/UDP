@@ -66,6 +66,9 @@ public class ServerThread extends Thread {
 			// UDP
 			DatagramSocket UDPSocket = new DatagramSocket(
 					TCPSocket.getLocalPort());
+			boolean keepGoing = true;
+			
+			
 			System.out.println("=================================");
 			System.out
 					.println("SERVER THREAD: opened a UDP connection using port"
