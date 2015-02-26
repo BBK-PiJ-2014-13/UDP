@@ -76,7 +76,7 @@ public class ServerThread extends Thread {
 			System.out.println("=================================");
 			System.out.println();
 
-			File serverFile = new File("server" + id + "inputFile.jpg");
+			File serverFile = new File("server" + id + "inputFile.mp3");
 			FileOutputStream fileOutputStream = new FileOutputStream(serverFile);
 
 			// Receive audio

@@ -52,7 +52,7 @@ public class Client {
 
 				// Send audio
 				if (isFirstToConnect) {
-					File audioFile = new File("outputFile.jpg");
+					File audioFile = new File("outputFile.mp3");
 					InputStream targetStream = new FileInputStream(audioFile);
 					while (targetStream.read(sendData) != -1) {
 						DatagramPacket sendPacket = new DatagramPacket(sendData,
