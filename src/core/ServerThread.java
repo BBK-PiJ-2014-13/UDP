@@ -19,12 +19,14 @@ public class ServerThread extends Thread {
 	private Socket TCPSocket = null;
 	String clientSentence = null;
 	String fileName;
-	String inputFile;
+	String inputFile; // Name of file copied from client and then sent to other
+						// clients
 	int id = 0;
 	boolean isFirstToConnect;
 	int portNumber;
 
-	public ServerThread(Socket socket, int id, boolean isFirstToConnect, String inputFile) {
+	public ServerThread(Socket socket, int id, boolean isFirstToConnect,
+			String inputFile) {
 		super("ServerThread");
 		this.TCPSocket = socket;
 		this.id = id;
@@ -68,7 +70,8 @@ public class ServerThread extends Thread {
 
 			// Receive
 			if (isFirstToConnect) {
-				FileOutputStream fileOutputStream = new FileOutputStream(serverFile);
+				FileOutputStream fileOutputStream = new FileOutputStream(
+						serverFile);
 				while (keepGoing) {
 					buffer = new byte[1024];
 

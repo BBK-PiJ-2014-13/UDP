@@ -7,20 +7,27 @@ package testers;
  */
 public class TestingScript {
 	public static void main(String[] args) {
-		String fileName = "outputFile.mp3";
-		String portNumber = "1054";
+		String fileName = "audio.mp3";
+		String portNumber = "1099";
 
 		// Start a server
-		ServerTester serverTester = new ServerTester(portNumber);
+		ServerTester serverTester = new ServerTester("inputFile.mp3", portNumber);
 		serverTester.start();
 
 		// Start a client
 		ClientTester clientTester = new ClientTester(fileName, portNumber);
 		clientTester.start();
 		
+		try {
+			Thread.sleep(10000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 		// Start another client
 		ClientTester clientTester2 = new ClientTester(fileName, portNumber);
-		clientTester.start();
+		clientTester2.start();
 
 	}
 }
