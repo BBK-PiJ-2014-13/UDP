@@ -24,6 +24,7 @@ public class ServerThread extends Thread {
 	int id = 0;
 	boolean isFirstToConnect;
 	int portNumber;
+	InetAddress IPAddress;
 
 	public ServerThread(Socket socket, int id, boolean isFirstToConnect,
 			String inputFile) {
@@ -66,7 +67,7 @@ public class ServerThread extends Thread {
 			UDPSocket.setSoTimeout(1000);
 			File serverFile = new File(inputFile);
 			byte[] buffer;
-			InetAddress IPAddress = InetAddress.getByName("localhost");
+			IPAddress = UDPSocket.getInetAddress();
 
 			// Receive
 			if (isFirstToConnect) {
