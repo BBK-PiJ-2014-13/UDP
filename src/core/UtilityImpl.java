@@ -98,12 +98,12 @@ public class UtilityImpl implements Utility {
 
 	
 	@Override
-	public void receiveFile() {
+	public void receiveFile(String fileName) {
 		boolean keepGoing = true;
 		FileOutputStream fileOutputStream = null;
 		try {
 			fileOutputStream = new FileOutputStream(
-					onServerFileName);
+					fileName);
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

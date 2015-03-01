@@ -60,30 +60,6 @@ public class ServerThread extends Thread {
 			// Receive
 			if (isFirstToConnect) {
 				utility.receiveFile();
-				FileOutputStream fileOutputStream = new FileOutputStream(
-						serverFile);
-				while (keepGoing) {
-					buffer = new byte[1024];
-					DatagramPacket receivePacket = new DatagramPacket(buffer,
-							buffer.length);
-					try {
-						UDPSocket.receive(receivePacket);
-					} catch (SocketTimeoutException e) {
-						System.out.println("Server" + id
-								+ ": Connection timed out");
-						break;
-					}
-
-					// If done receiving, stop the while loop
-					if (receivePacket.getData() == null
-							|| receivePacket.getData().length == 0) {
-						keepGoing = false;
-					}
-
-					fileOutputStream.write(receivePacket.getData());
-
-				}
-				fileOutputStream.close();
 			}
 
 			// Send
