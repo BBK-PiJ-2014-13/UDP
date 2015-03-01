@@ -21,6 +21,8 @@ public interface Utility {
 	 * Answer for request if first to connect
 	 * 
 	 * @return answer: true if the client is first to connect, false if not
+	 * @param isFirstToConnect
+	 *            Whether the client is first to connect or not
 	 */
 	public boolean answerIfFirstToConnect(boolean isFirstToConnect);
 
@@ -30,4 +32,12 @@ public interface Utility {
 	 * @return name of audio file
 	 */
 	public String readNameOfFile();
+
+	/**
+	 * Close TCP socket and open UDP
+	 * 
+	 * @param socket
+	 *            TCP socket
+	 */
+	public void initializeUDP(Socket socket);
 }

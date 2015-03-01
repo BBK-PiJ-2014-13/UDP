@@ -41,11 +41,6 @@ public class ServerThread extends Thread {
 	public void run() {
 
 		try {
-			BufferedReader inFromClient = new BufferedReader(
-					new InputStreamReader(TCPSocket.getInputStream()));
-			DataOutputStream outToClient = new DataOutputStream(
-					TCPSocket.getOutputStream());
-
 			// Send unique ID
 			utility.sendID(id);
 
@@ -53,7 +48,7 @@ public class ServerThread extends Thread {
 			utility.answerIfFirstToConnect(isFirstToConnect);
 
 			// Receive name of file
-			fileName = inFromClient.readLine();
+			fileName = utility.readNameOfFile();
 
 			TCPSocket.close();
 

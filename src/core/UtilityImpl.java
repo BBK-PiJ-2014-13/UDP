@@ -4,7 +4,9 @@ import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.net.DatagramSocket;
 import java.net.Socket;
+import java.net.SocketException;
 
 import org.junit.Before;
 
@@ -12,7 +14,9 @@ public class UtilityImpl implements Utility {
 
 	private BufferedReader inFromClient;
 	private DataOutputStream outToClient;
-
+	private int portNumber;
+	DatagramSocket UDPSocket;
+	
 	public UtilityImpl(Socket socket) {
 		try {
 			inFromClient = new BufferedReader(new InputStreamReader(
@@ -22,7 +26,7 @@ public class UtilityImpl implements Utility {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
+		portNumber = socket.getLocalPort();
 	}
 
 	@Override
@@ -62,6 +66,20 @@ public class UtilityImpl implements Utility {
 			e.printStackTrace();
 		}
 		return result;
+	}
+
+	
+	@Override
+	public void initializeUDP(Socket socket) {
+		try {
+			socket.close();
+			UDPSocket = new DatagramSocket(
+					portNumber);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 	}
 
 }
