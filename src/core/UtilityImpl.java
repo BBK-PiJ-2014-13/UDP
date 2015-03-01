@@ -52,4 +52,16 @@ public class UtilityImpl implements Utility {
 		return isFirstToConnect;
 	}
 
+	@Override
+	public String readNameOfFile() {
+		String result = null;
+		try {
+			result = inFromClient.readLine();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return result;
+	}
+
 }

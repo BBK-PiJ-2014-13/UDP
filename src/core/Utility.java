@@ -16,11 +16,18 @@ public interface Utility {
 	 * @return sent String
 	 */
 	public String sendID(int id);
-	
+
 	/**
 	 * Answer for request if first to connect
 	 * 
-	 * @return answer: true if the client is first to connect, false if not 
+	 * @return answer: true if the client is first to connect, false if not
 	 */
 	public boolean answerIfFirstToConnect(boolean isFirstToConnect);
+
+	/**
+	 * Read name of file from received packet through TCP connection
+	 * 
+	 * @return name of audio file
+	 */
+	public String readNameOfFile();
 }

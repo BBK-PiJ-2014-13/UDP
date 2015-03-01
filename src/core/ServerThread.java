@@ -35,7 +35,7 @@ public class ServerThread extends Thread {
 		this.inputFile = inputFile;
 		portNumber = socket.getLocalPort();
 		IPAddress = socket.getInetAddress();
-		utility = new UtilityImpl();
+		utility = new UtilityImpl(TCPSocket);
 	}
 
 	public void run() {
@@ -47,13 +47,10 @@ public class ServerThread extends Thread {
 					TCPSocket.getOutputStream());
 
 			// Send unique ID
-			utility.sendID(TCPSocket, id);
+			utility.sendID(id);
 
 			// Indicate to client if it is a sender or receiver process
-			if (inFromClient.readLine().equals("firstToConnectRequest")) {
-				outToClient.writeBytes(Boolean.toString(isFirstToConnect)
-						+ "\n");
-			}
+			utility.answerIfFirstToConnect(isFirstToConnect);
 
 			// Receive name of file
 			fileName = inFromClient.readLine();
