@@ -22,7 +22,6 @@ public class UtilityImpl implements Utility {
 	public int id;
 	private DatagramSocket UDPSocket;
 	private String onServerFileName;
-	private FileOutputStream fileOutputStream;
 	byte[] buffer;
 
 	public UtilityImpl(Socket socket) {
@@ -101,8 +100,9 @@ public class UtilityImpl implements Utility {
 	@Override
 	public void receiveFile() {
 		boolean keepGoing = true;
+		FileOutputStream fileOutputStream = null;
 		try {
-			FileOutputStream fileOutputStream = new FileOutputStream(
+			fileOutputStream = new FileOutputStream(
 					onServerFileName);
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
@@ -114,6 +114,7 @@ public class UtilityImpl implements Utility {
 					buffer.length);
 			try {
 				UDPSocket.receive(receivePacket);
+				fileOutputStream.write(receivePacket.getData());
 			} catch (IOException e) {
 				if (e instanceof SocketTimeoutException) {
 					System.out.println("Server" + id
@@ -121,6 +122,19 @@ public class UtilityImpl implements Utility {
 					break;
 				}
 			}
+			
+			// If done receiving, stop the while loop
+			if (receivePacket.getData() == null
+					|| receivePacket.getData().length == 0) {
+				keepGoing = false;
+			}
+		}
+		
+		try {
+			fileOutputStream.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 
