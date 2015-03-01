@@ -10,7 +10,7 @@ public class Client {
 		String originalFileName = args[0];
 		int id;
 		boolean isFirstToConnect = false;
-		Utility utility = null;
+		UtilityImpl utility = null;
 		try {
 			utility = new UtilityImpl(new Socket("localhost",
 					Integer.parseInt(args[1])));
@@ -28,8 +28,7 @@ public class Client {
 
 			// UDP Section
 			utility.initializeUDP("client");
-			
-			InetAddress IPAddress = InetAddress.getByName("localhost");
+			utility.setIPAddress(InetAddress.getByName("localhost"));
 
 			// Send audio
 			if (isFirstToConnect) {

@@ -119,7 +119,7 @@ public class UtilityTester extends BasicTester {
 	 * @throws IOException
 	 */
 
-//	@Test
+	@Test
 	public void receiveFileTester() throws IOException {
 		clientUtility.initializeUDP("client");
 		serverUtility.initializeUDP("server");
@@ -146,7 +146,7 @@ public class UtilityTester extends BasicTester {
 	 * 
 	 * @throws IOException
 	 */
-	@Test
+//	@Test
 	public void sendFileTester() throws IOException {
 		clientUtility.initializeUDP("client");
 		serverUtility.initializeUDP("server");
