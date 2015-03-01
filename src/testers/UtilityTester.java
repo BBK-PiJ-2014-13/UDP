@@ -118,8 +118,16 @@ public class UtilityTester extends BasicTester {
 	 * 
 	 * @throws IOException
 	 */
-
+	
+	/**
+	 * tests receiveFile() and sendFile()
+	 */
 	@Test
+	public void receiveSendFileTester() {
+		test();
+	}
+
+//	@Test
 	public void receiveFileTester() throws IOException {
 		clientUtility.initializeUDP("client");
 		serverUtility.initializeUDP("server");
@@ -146,9 +154,10 @@ public class UtilityTester extends BasicTester {
 	 * 
 	 * @throws IOException
 	 */
-//	@Test
+	@Test
 	public void sendFileTester() throws IOException {
 		clientUtility.initializeUDP("client");
+		clientUtility.setIPAddress(InetAddress.getByName("localhost"));
 		serverUtility.initializeUDP("server");
 		clientUtility.sendFile("testFirstFile.txt");
 
