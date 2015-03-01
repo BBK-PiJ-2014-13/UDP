@@ -8,7 +8,7 @@ package testers;
 public class TestingScript {
 	public static void main(String[] args) {
 		String fileName = "audio.mp3";
-		String portNumber = "1099";
+		String portNumber = "1097";
 
 		// Start a server
 		ServerTester serverTester = new ServerTester("inputFile.mp3", portNumber);

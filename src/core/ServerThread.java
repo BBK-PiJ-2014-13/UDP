@@ -34,6 +34,7 @@ public class ServerThread extends Thread {
 		this.isFirstToConnect = isFirstToConnect;
 		this.inputFile = inputFile;
 		portNumber = socket.getLocalPort();
+		IPAddress = socket.getInetAddress();
 	}
 
 	public void run() {
@@ -62,12 +63,11 @@ public class ServerThread extends Thread {
 
 			// UDP
 			DatagramSocket UDPSocket = new DatagramSocket(
-					TCPSocket.getLocalPort());
+					portNumber);
 			boolean keepGoing = true;
-			UDPSocket.setSoTimeout(1000);
+			UDPSocket.setSoTimeout(2000);
 			File serverFile = new File(inputFile);
 			byte[] buffer;
-			IPAddress = UDPSocket.getInetAddress();
 
 			// Receive
 			if (isFirstToConnect) {
@@ -75,7 +75,6 @@ public class ServerThread extends Thread {
 						serverFile);
 				while (keepGoing) {
 					buffer = new byte[1024];
-
 					DatagramPacket receivePacket = new DatagramPacket(buffer,
 							buffer.length);
 					try {
@@ -100,6 +99,19 @@ public class ServerThread extends Thread {
 
 			// Send
 			else {
+				// Receive an empty packet to get client's address
+				buffer = new byte[1024];
+				DatagramPacket receivePacket = new DatagramPacket(buffer,
+						buffer.length);
+				try {
+					UDPSocket.receive(receivePacket);
+				} catch (SocketTimeoutException e) {
+					System.out.println("Server" + id
+							+ ": Connection timed out");
+				}
+				
+				IPAddress = receivePacket.getAddress();
+				
 				buffer = new byte[1024];
 				File audioFile = new File(inputFile);
 				InputStream targetStream = new FileInputStream(audioFile);

@@ -23,7 +23,7 @@ public class Client {
 		int id;
 		int portNumber = Integer.parseInt(args[1]);
 		boolean isFirstToConnect = false;
-
+		
 		try {
 			// Connect to server
 			Socket TCPsocket = new Socket(hostName, portNumber);
@@ -46,6 +46,8 @@ public class Client {
 			outToServer.writeBytes(fileName + "\n");
 
 			TCPsocket.close();
+			
+			System.out.println("Client" + id + ": started");
 
 			// UDP
 			DatagramSocket UDPSocket = new DatagramSocket();
@@ -67,6 +69,12 @@ public class Client {
 
 			// Receive audio
 			else {
+				// Send an empty packet to give server this client's address
+				buffer = new byte[1024];
+				DatagramPacket sendPacket = new DatagramPacket(buffer,
+						buffer.length, IPAddress, portNumber);
+				UDPSocket.send(sendPacket);
+				
 				File clientFile = new File("client" + id + fileName);
 				FileOutputStream fileOutputStream = new FileOutputStream(clientFile);
 				boolean keepGoing = true;
@@ -82,11 +90,14 @@ public class Client {
 								.println("Server" + id + ": Connection timed out");
 						break;
 					}
-
 					// If done receiving, stop the while loop
 					if (receivePacket.getData() == null
 							|| receivePacket.getData().length == 0) {
 						keepGoing = false;
+						if (id == 1) {
+						System.out.println("gets called");
+					}
+
 					}
 					fileOutputStream.write(receivePacket.getData());
 				}
