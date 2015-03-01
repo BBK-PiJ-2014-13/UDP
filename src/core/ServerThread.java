@@ -1,13 +1,10 @@
 package core;
 
-import java.io.BufferedReader;
-import java.io.DataOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
@@ -41,6 +38,8 @@ public class ServerThread extends Thread {
 	public void run() {
 
 		try {
+			// TCP section
+			
 			// Send unique ID
 			utility.sendID(id);
 
@@ -50,13 +49,13 @@ public class ServerThread extends Thread {
 			// Receive name of file
 			fileName = utility.readNameOfFile();
 
-			TCPSocket.close();
+			// Close TCP connection and open UDP
+			utility.initializeUDP(TCPSocket);
 
-			// UDP
-			DatagramSocket UDPSocket = new DatagramSocket(
-					portNumber);
+			
+			// UDP Section
+			
 			boolean keepGoing = true;
-			UDPSocket.setSoTimeout(2000);
 			File serverFile = new File(inputFile);
 			byte[] buffer;
 

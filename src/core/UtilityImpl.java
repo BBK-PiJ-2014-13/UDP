@@ -15,8 +15,9 @@ public class UtilityImpl implements Utility {
 	private BufferedReader inFromClient;
 	private DataOutputStream outToClient;
 	private int portNumber;
-	DatagramSocket UDPSocket;
-	
+	private DatagramSocket UDPSocket;
+	private String fileName;
+
 	public UtilityImpl(Socket socket) {
 		try {
 			inFromClient = new BufferedReader(new InputStreamReader(
@@ -68,18 +69,22 @@ public class UtilityImpl implements Utility {
 		return result;
 	}
 
-	
 	@Override
 	public void initializeUDP(Socket socket) {
 		try {
 			socket.close();
-			UDPSocket = new DatagramSocket(
-					portNumber);
+			UDPSocket = new DatagramSocket(portNumber);
+			UDPSocket.setSoTimeout(2000);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+	}
+
+
+	@Override
+	public void setFileName(String fileName) {
+		this.fileName = fileName;
 	}
 
 }

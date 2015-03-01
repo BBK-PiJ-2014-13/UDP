@@ -40,4 +40,6 @@ public interface Utility {
 	 *            TCP socket
 	 */
 	public void initializeUDP(Socket socket);
+	
+	public void setFileName(String fileName);
 }
