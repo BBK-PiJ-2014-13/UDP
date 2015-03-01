@@ -12,12 +12,12 @@ public class UtilityImpl implements Utility {
 
 	private BufferedReader inFromClient;
 	private DataOutputStream outToClient;
-
-	@Before
-	public void buildUp() {
-
+	private Socket socket;
+	
+	public UtilityImpl(Socket socket) {
+		
 	}
-
+	
 	@Override
 	public String sendID(Socket socket, int id) {
 		try {
@@ -46,8 +46,7 @@ public class UtilityImpl implements Utility {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
-		return false;
+		return isFirstToConnect;
 	}
 
 }
