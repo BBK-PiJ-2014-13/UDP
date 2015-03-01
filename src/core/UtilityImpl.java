@@ -20,7 +20,8 @@ public class UtilityImpl implements Utility {
 	private BufferedReader inFrom;
 	private DataOutputStream outTo;
 	private int portNumber;
-	public int id;
+	private int id;
+	private Socket TCPSocket;
 	private DatagramSocket UDPSocket;
 	private String onServerFileName;
 	byte[] buffer;
@@ -37,6 +38,7 @@ public class UtilityImpl implements Utility {
 		}
 		portNumber = socket.getLocalPort();
 		IPAddress = socket.getInetAddress();
+		TCPSocket = socket;
 	}
 
 	@Override
@@ -90,22 +92,9 @@ public class UtilityImpl implements Utility {
 		return result;
 	}
 	
-	@Override
-	public String readNameOfFile() {
-		String result = null;
+	public void initializeUDP() {
 		try {
-			result = inFrom.readLine();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return result;
-	}
-
-	@Override
-	public void initializeUDP(Socket socket) {
-		try {
-			socket.close();
+			TCPSocket.close();
 			UDPSocket = new DatagramSocket(portNumber);
 			UDPSocket.setSoTimeout(2000);
 		} catch (IOException e) {

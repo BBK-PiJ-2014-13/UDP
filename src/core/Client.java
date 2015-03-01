@@ -35,12 +35,9 @@ public class Client {
 			id = utility.askForID();
 
 			// Ask if its first to connect
-			isFirstToConnect = Boolean.parseBoolean(inFromServer.readLine());
+			isFirstToConnect = utility.askIfFirstToConnect();
 
-			// Send the name of file to Server
-			outToServer.writeBytes(fileName + "\n");
-
-			TCPsocket.close();
+			utility.initializeUDP(TC);
 
 			System.out.println("Client" + id + ": started");
 

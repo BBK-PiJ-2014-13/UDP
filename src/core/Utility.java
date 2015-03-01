@@ -43,19 +43,12 @@ public interface Utility {
 	public boolean askIfFirstToConnect();
 
 	/**
-	 * Read name of file from received packet through TCP connection
-	 * 
-	 * @return name of audio file
-	 */
-	public String readNameOfFile();
-
-	/**
 	 * Close TCP socket and open UDP
 	 * 
 	 * @param socket
 	 *            TCP socket
 	 */
-	public void initializeUDP(Socket socket);
+	public void initializeUDP();
 
 	/**
 	 * @param fileName
