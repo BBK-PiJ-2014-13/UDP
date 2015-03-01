@@ -12,10 +12,10 @@ public class UtilityImpl implements Utility {
 
 	private BufferedReader inFromClient;
 	private DataOutputStream outToClient;
-	
+
 	@Before
 	public void buildUp() {
-		
+
 	}
 
 	@Override
@@ -35,10 +35,16 @@ public class UtilityImpl implements Utility {
 	}
 
 	@Override
-	public boolean answerIfFirstToConnect() {
-		if (inFromClient.readLine().equals("firstToConnectRequest")) {
-			outToClient.writeBytes(Boolean.toString(isFirstToConnect)
-					+ "\n");
+	public boolean answerIfFirstToConnect(Socket socket,
+			boolean isFirstToConnect) {
+		try {
+			if (inFromClient.readLine().equals("firstToConnectRequest")) {
+				outToClient.writeBytes(Boolean.toString(isFirstToConnect)
+						+ "\n");
+			}
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 
 		return false;
