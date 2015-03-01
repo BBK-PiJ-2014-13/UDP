@@ -130,8 +130,8 @@ public class UtilityTester extends BasicTester {
 		clientUtility.sendFile("testFirstFile.txt");
 		serverUtility.receiveFile("testSecondFile.txt");
 		
-		valueExpected = new File("testFirstFile").length();
-		valueActual = new File("testSecondFile").length();
+		valueExpected = new File("testFirstFile.txt").length();
+		valueActual = new File("testSecondFile.txt").length();
 		test();
 	}
 

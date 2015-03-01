@@ -46,7 +46,7 @@ public class UtilityImpl implements Utility {
 
 	@Override
 	public void sendID() {
-		
+
 		try {
 			if (inFrom.readLine().equals("IDrequest")) {
 				outTo.writeBytes(Integer.toString(id) + "\n");
@@ -126,6 +126,7 @@ public class UtilityImpl implements Utility {
 			DatagramPacket receivePacket = new DatagramPacket(buffer,
 					buffer.length);
 			try {
+				System.out.println("gets called");
 				UDPSocket.receive(receivePacket);
 				fileOutputStream.write(receivePacket.getData());
 			} catch (IOException e) {
@@ -168,19 +169,7 @@ public class UtilityImpl implements Utility {
 			while (targetStream.read(buffer) != -1) {
 				DatagramPacket sendPacket = new DatagramPacket(buffer,
 						buffer.length, IPAddress, portNumber);
-				try {
 				UDPSocket.send(sendPacket);
-				} catch (NullPointerException e) {
-					if (UDPSocket == null) {
-						System.out.println("UDPSocket");
-					}
-					
-					if (sendPacket == null) {
-						System.out.println("sendPacket");
-					}
-					
-					throw e;
-				}
 			}
 			targetStream.close();
 		} catch (IOException e) {

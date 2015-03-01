@@ -1,0 +1,29 @@
+=== DESCRIPTION ===
+
+This project creates a server and then allows multiple clients to connect to it.
+The first client will send a file to to server and all subsequent clients will be
+able to download the file.
+
+=== HOW TO USE ===
+
+1. Server
+
+Create an instance of Server class and call its main method with arguments
+(fileName, portNumber), where:
+fileName - 		path under which you want to save the file that will be sent
+				from client to server
+portNumber -	port number that you want to use for client - server connection
+
+2. Client
+
+Create several instances of Client class and call their main methods with arguments
+(fileName, portNumber), where:
+fileName - 		path to the file which you want to send to server.
+portNumber - 	port number that you want to use for client - server connection
+
+=== EXAMPLE ===
+
+$ java Server inputFile.mp3 1099
+$ java Client audio.mp3 1099
+$ java Client audio.mp3 1099
+$ java Client audio.mp3 1099
