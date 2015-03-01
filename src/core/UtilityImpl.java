@@ -17,8 +17,8 @@ import java.net.SocketTimeoutException;
 
 public class UtilityImpl implements Utility {
 
-	private BufferedReader inFromClient;
-	private DataOutputStream outToClient;
+	private BufferedReader inFrom;
+	private DataOutputStream outTo;
 	private int portNumber;
 	public int id;
 	private DatagramSocket UDPSocket;
@@ -28,9 +28,9 @@ public class UtilityImpl implements Utility {
 
 	public UtilityImpl(Socket socket) {
 		try {
-			inFromClient = new BufferedReader(new InputStreamReader(
+			inFrom = new BufferedReader(new InputStreamReader(
 					socket.getInputStream()));
-			outToClient = new DataOutputStream(socket.getOutputStream());
+			outTo = new DataOutputStream(socket.getOutputStream());
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -42,8 +42,8 @@ public class UtilityImpl implements Utility {
 	@Override
 	public void sendID() {
 		try {
-			if (inFromClient.readLine().equals("IDrequest")) {
-				outToClient.writeBytes(Integer.toString(id) + "\n");
+			if (inFrom.readLine().equals("IDrequest")) {
+				outTo.writeBytes(Integer.toString(id) + "\n");
 			}
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -60,8 +60,8 @@ public class UtilityImpl implements Utility {
 	@Override
 	public boolean answerIfFirstToConnect(boolean isFirstToConnect) {
 		try {
-			if (inFromClient.readLine().equals("firstToConnectRequest")) {
-				outToClient.writeBytes(Boolean.toString(isFirstToConnect)
+			if (inFrom.readLine().equals("firstToConnectRequest")) {
+				outTo.writeBytes(Boolean.toString(isFirstToConnect)
 						+ "\n");
 			}
 		} catch (IOException e) {
@@ -75,7 +75,7 @@ public class UtilityImpl implements Utility {
 	public String readNameOfFile() {
 		String result = null;
 		try {
-			result = inFromClient.readLine();
+			result = inFrom.readLine();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
