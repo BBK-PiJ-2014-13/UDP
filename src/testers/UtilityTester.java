@@ -3,10 +3,17 @@ package testers;
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.net.DatagramPacket;
+import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.net.SocketTimeoutException;
 
 import org.junit.After;
 import org.junit.Before;
@@ -15,7 +22,7 @@ import org.junit.Test;
 import core.UtilityImpl;
 
 public class UtilityTester extends BasicTester {
-	int portNumber = 1097;
+	int portNumber = 1095;
 	ServerSocket serverSocket;
 	Socket client;
 	Socket server;
@@ -25,6 +32,7 @@ public class UtilityTester extends BasicTester {
 	BufferedReader inFromClient;
 	DataOutputStream outToServer;
 	DataOutputStream outToClient;
+	byte[] buffer;
 
 	@Before
 	public void buildUp() throws IOException {
@@ -107,15 +115,63 @@ public class UtilityTester extends BasicTester {
 
 	/**
 	 * tests sendFile()
+	 * 
+	 * @throws IOException
 	 */
 	@Test
-	public void sendFileTester() {
+	public void sendFileTester() throws IOException {
 		clientUtility.initializeUDP();
 		serverUtility.initializeUDP();
-		clientUtility.sendFile("audio.mp3");
-		serverUtility.receiveFile("serverFileTest.mp3");
-		valueExpected = new File("audio.mp3").length();
-		valueActual = new File("serverFileTest.mp3").length();
+		clientUtility.sendFile("testFirstFile.txt");
+
+		// Send
+		// buffer = new byte[1024];
+		// File audioFile = new File("testFirstFile.txt");
+		// InputStream targetStream = new FileInputStream(audioFile);
+		int count = 0;
+		// while (targetStream.read(buffer) != -1) {
+		// DatagramPacket sendPacket = new DatagramPacket(buffer,
+		// buffer.length, clientUtility.getIPAddress(), portNumber);
+		// serverUtility.getUDPSocket().send(sendPacket);
+		// }
+		// targetStream.close();
+
+		// Receive
+		boolean keepGoing = true;
+		FileOutputStream fileOutputStream = new FileOutputStream(
+				"testSecondFile.txt");
+		while (keepGoing) {
+			System.out.println(count++);
+			buffer = new byte[1024];
+			DatagramPacket receivePacket = new DatagramPacket(buffer,
+					buffer.length);
+			if (count == 65) {
+				System.out.println("gets stuck here");
+			}
+
+			try {
+				serverUtility.getUDPSocket().receive(receivePacket);
+			} catch (IOException e) {
+				if (e instanceof SocketTimeoutException) {
+					System.out.println("Server" + ": Connection timed out");
+					break;
+				} else {
+					e.printStackTrace();
+				}
+			}
+
+			fileOutputStream.write(receivePacket.getData());
+
+			// If done receiving, stop the while loop
+			if (receivePacket.getData() == null
+					|| receivePacket.getData().length == 0) {
+				keepGoing = false;
+			}
+		}
+		fileOutputStream.close();
+
+		valueExpected = new File("testFirstFile").length();
+		valueActual = new File("testSecondFile").length();
 		test();
 	}
 
