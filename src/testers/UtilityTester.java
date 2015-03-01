@@ -16,16 +16,16 @@ public class UtilityTester extends BasicTester {
 	Socket clientSocket;
 	Utility serverUtility;
 	Utility clientUtility;
-	
+
 	@Before
 	public void buildUp() throws IOException {
 		serverSocket = new ServerSocket(portNumber);
 		clientSocket = new Socket("localhost", portNumber);
 		serverUtility = new UtilityImpl(serverSocket.accept());
 		clientUtility = new UtilityImpl(clientSocket);
-		
+
 	}
-	
+
 	/**
 	 * Tests sendID() and askForID()
 	 */

@@ -15,6 +15,9 @@ import java.net.InetAddress;
 import java.net.Socket;
 import java.net.SocketTimeoutException;
 
+import lombok.Data;
+
+@Data
 public class UtilityImpl implements Utility {
 
 	private BufferedReader inFrom;
@@ -64,13 +67,12 @@ public class UtilityImpl implements Utility {
 		}
 		return result;
 	}
-	
+
 	@Override
 	public boolean answerIfFirstToConnect(boolean isFirstToConnect) {
 		try {
 			if (inFrom.readLine().equals("firstToConnectRequest")) {
-				outTo.writeBytes(Boolean.toString(isFirstToConnect)
-						+ "\n");
+				outTo.writeBytes(Boolean.toString(isFirstToConnect) + "\n");
 			}
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -91,7 +93,7 @@ public class UtilityImpl implements Utility {
 		}
 		return result;
 	}
-	
+
 	public void initializeUDP() {
 		try {
 			TCPSocket.close();
@@ -185,7 +187,5 @@ public class UtilityImpl implements Utility {
 		}
 		UDPSocket.close();
 	}
-
-
 
 }
