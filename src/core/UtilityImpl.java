@@ -88,7 +88,7 @@ public class UtilityImpl implements Utility {
 
 
 	@Override
-	public void setFileName(String fileName) {
+	public void setOnServerFileName(String fileName) {
 		this.onServerFileName = fileName;
 	}
 

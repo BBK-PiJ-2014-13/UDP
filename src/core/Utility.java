@@ -44,7 +44,7 @@ public interface Utility {
 	 * @param fileName
 	 *            name of audio file
 	 */
-	public void setFileName(String fileName);
+	public void setOnServerFileName(String fileName);
 
 	/**
 	 * Receive file over UDP
