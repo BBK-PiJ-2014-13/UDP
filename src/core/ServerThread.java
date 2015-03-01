@@ -13,7 +13,6 @@ import java.net.DatagramSocket;
 import java.net.InetAddress;
 import java.net.Socket;
 import java.net.SocketTimeoutException;
-import java.util.Arrays;
 
 public class ServerThread extends Thread {
 	private Socket TCPSocket = null;
@@ -21,6 +20,7 @@ public class ServerThread extends Thread {
 	String fileName;
 	String inputFile; // Name of file copied from client and then sent to other
 						// clients
+	Utility utility;
 	int id = 0;
 	boolean isFirstToConnect;
 	int portNumber;
@@ -35,6 +35,7 @@ public class ServerThread extends Thread {
 		this.inputFile = inputFile;
 		portNumber = socket.getLocalPort();
 		IPAddress = socket.getInetAddress();
+		utility = new UtilityImpl();
 	}
 
 	public void run() {
@@ -46,9 +47,7 @@ public class ServerThread extends Thread {
 					TCPSocket.getOutputStream());
 
 			// Send unique ID
-			if (inFromClient.readLine().equals("IDrequest")) {
-				outToClient.writeBytes(Integer.toString(id) + "\n");
-			}
+			utility.sendID(TCPSocket, id);
 
 			// Indicate to client if it is a sender or receiver process
 			if (inFromClient.readLine().equals("firstToConnectRequest")) {
