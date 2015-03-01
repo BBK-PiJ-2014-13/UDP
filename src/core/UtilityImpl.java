@@ -2,11 +2,15 @@ package core;
 
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.Socket;
 import java.net.SocketException;
+import java.net.SocketTimeoutException;
 
 import org.junit.Before;
 
@@ -16,7 +20,9 @@ public class UtilityImpl implements Utility {
 	private DataOutputStream outToClient;
 	private int portNumber;
 	private DatagramSocket UDPSocket;
-	private String fileName;
+	private String onServerFileName;
+	private FileOutputStream fileOutputStream;
+	byte[] buffer;
 
 	public UtilityImpl(Socket socket) {
 		try {
@@ -84,18 +90,37 @@ public class UtilityImpl implements Utility {
 
 	@Override
 	public void setFileName(String fileName) {
-		this.fileName = fileName;
+		this.onServerFileName = fileName;
 	}
 
 	public String getFileName() {
-		return fileName;
+		return onServerFileName;
 	}
 
 	
 	@Override
 	public void receiveFile() {
-		// TODO Auto-generated method stub
-		
+		boolean keepGoing = true;
+		try {
+			FileOutputStream fileOutputStream = new FileOutputStream(
+					onServerFileName);
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		while (keepGoing) {
+			buffer = new byte[1024];
+			DatagramPacket receivePacket = new DatagramPacket(buffer,
+					buffer.length);
+			try {
+				UDPSocket.receive(receivePacket);
+			} catch (SocketTimeoutException e) {
+				System.out.println("Server" + id
+						+ ": Connection timed out");
+				break;
+			}
+		}
 	}
 
+	
 }

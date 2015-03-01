@@ -23,7 +23,7 @@ public class ServerThread extends Thread {
 	InetAddress IPAddress;
 
 	public ServerThread(Socket socket, int id, boolean isFirstToConnect,
-			String inputFile) {
+			String onServerFileName) {
 		super("ServerThread");
 		this.TCPSocket = socket;
 		this.id = id;
@@ -31,7 +31,7 @@ public class ServerThread extends Thread {
 		portNumber = socket.getLocalPort();
 		IPAddress = socket.getInetAddress();
 		utility = new UtilityImpl(TCPSocket);
-		utility.setFileName(inputFile);
+		utility.setFileName(onServerFileName);
 	}
 
 	public void run() {
@@ -60,6 +60,7 @@ public class ServerThread extends Thread {
 
 			// Receive
 			if (isFirstToConnect) {
+				utility.receiveFile();
 				FileOutputStream fileOutputStream = new FileOutputStream(
 						serverFile);
 				while (keepGoing) {

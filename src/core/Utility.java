@@ -47,7 +47,7 @@ public interface Utility {
 	public void setFileName(String fileName);
 
 	/**
-	 * Receive file over UDP connection
+	 * Receive file over UDP
 	 */
 	public void receiveFile();
 }
