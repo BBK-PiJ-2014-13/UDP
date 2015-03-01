@@ -24,14 +24,8 @@ public class ServerThread extends Thread {
 		// Indicate to client if it is a sender or receiver process
 		utility.answerIfFirstToConnect(isFirstToConnect);
 
-		// Receive name of file and remember it
-		utility.setOnServerFileName(utility.readNameOfFile());
-
-		// Close TCP connection and open UDP
-		utility.initializeUDP(TCPSocket);
-
-		
 		// UDP Section
+		utility.initializeUDP();
 		
 		// Receive
 		if (isFirstToConnect) {

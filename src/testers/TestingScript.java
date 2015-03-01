@@ -7,7 +7,6 @@ package testers;
  */
 public class TestingScript {
 	public static void main(String[] args) {
-		String fileName = "audio.mp3";
 		String portNumber = "1097";
 
 		// Start a server
@@ -15,7 +14,7 @@ public class TestingScript {
 		serverTester.start();
 
 		// Start a client
-		ClientTester clientTester = new ClientTester(fileName, portNumber);
+		ClientTester clientTester = new ClientTester("audio.mp3", portNumber);
 		clientTester.start();
 		
 		try {
@@ -26,7 +25,7 @@ public class TestingScript {
 		}
 		
 		// Start another client
-		ClientTester clientTester2 = new ClientTester(fileName, portNumber);
+		ClientTester clientTester2 = new ClientTester("audio.mp3", portNumber);
 		clientTester2.start();
 
 	}
