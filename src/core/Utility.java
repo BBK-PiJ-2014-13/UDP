@@ -15,5 +15,5 @@ public interface Utility {
 	 * 
 	 * @return sent String
 	 */
-	public String sendID(Socket socket);
+	public String sendID(Socket socket, int id);
 }

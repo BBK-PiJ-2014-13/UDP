@@ -12,7 +12,7 @@ public class UtilityImpl implements Utility {
 	private DataOutputStream outToClient;
 
 	@Override
-	public String sendID(Socket socket) {
+	public String sendID(Socket socket, int id) {
 		try {
 			inFromClient = new BufferedReader(new InputStreamReader(
 					socket.getInputStream()));
