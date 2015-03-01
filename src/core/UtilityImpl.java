@@ -107,15 +107,6 @@ public class UtilityImpl implements Utility {
 	}
 
 	@Override
-	public void setOnServerFileName(String fileName) {
-		this.onServerFileName = fileName;
-	}
-
-	public String getFileName() {
-		return onServerFileName;
-	}
-
-	@Override
 	public void receiveFile(String fileName) {
 		boolean keepGoing = true;
 		FileOutputStream fileOutputStream = null;
@@ -154,14 +145,6 @@ public class UtilityImpl implements Utility {
 			e.printStackTrace();
 		}
 		UDPSocket.close();
-	}
-
-	public void setID(int id) {
-		this.id = id;
-	}
-
-	public String getOnServerFileName() {
-		return onServerFileName;
 	}
 
 	@Override

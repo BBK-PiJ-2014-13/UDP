@@ -51,12 +51,6 @@ public interface Utility {
 	public void initializeUDP();
 
 	/**
-	 * @param fileName
-	 *            name of audio file
-	 */
-	public void setOnServerFileName(String fileName);
-
-	/**
 	 * Receive file over UDP
 	 * 
 	 * @param fileName
@@ -72,15 +66,4 @@ public interface Utility {
 	 */
 	public void sendFile(String fileName);
 	
-	/**
-	 * 
-	 * @param id
-	 *            of client that connects to server
-	 */
-	public void setID(int id);
-	
-	/**
-	 * @return name of file on server
-	 */
-	public String getOnServerFileName();
 }
