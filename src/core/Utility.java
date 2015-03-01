@@ -49,5 +49,11 @@ public interface Utility {
 	 * Receive file over UDP
 	 */
 	public void receiveFile();
+	
+	/**
+	 * 
+	 * @param id of client that connects to server
+	 */
+	public void setID(int id);
 }
 	

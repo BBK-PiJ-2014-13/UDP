@@ -17,7 +17,6 @@ public class ServerThread extends Thread {
 	String inputFile; // Name of file copied from client and then sent to other
 						// clients
 	Utility utility;
-	int id = 0;
 	boolean isFirstToConnect;
 	int portNumber;
 	InetAddress IPAddress;
@@ -26,12 +25,12 @@ public class ServerThread extends Thread {
 			String onServerFileName) {
 		super("ServerThread");
 		this.TCPSocket = socket;
-		this.id = id;
 		this.isFirstToConnect = isFirstToConnect;
 		portNumber = socket.getLocalPort();
 		IPAddress = socket.getInetAddress();
 		utility = new UtilityImpl(TCPSocket);
 		utility.setFileName(onServerFileName);
+		utility.setID(id);
 	}
 
 	public void run() {
@@ -40,7 +39,7 @@ public class ServerThread extends Thread {
 			// TCP section
 			
 			// Send unique ID
-			utility.sendID(id);
+			utility.sendID();
 
 			// Indicate to client if it is a sender or receiver process
 			utility.answerIfFirstToConnect(isFirstToConnect);
