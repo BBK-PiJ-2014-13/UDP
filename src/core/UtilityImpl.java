@@ -51,6 +51,12 @@ public class UtilityImpl implements Utility {
 		}
 	}
 
+	public int askForID() {
+		outToServer.writeBytes("IDrequest\n");
+		id = Integer.parseInt(inFromServer.readLine());
+
+	}
+	
 	@Override
 	public boolean answerIfFirstToConnect(boolean isFirstToConnect) {
 		try {

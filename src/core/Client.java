@@ -18,22 +18,18 @@ import java.util.Arrays;
 
 public class Client {
 	public static void main(String[] args) {
-		String hostName = "localhost";
 		String fileName = args[0];
 		int id;
-		int portNumber = Integer.parseInt(args[1]);
 		boolean isFirstToConnect = false;
-		
 		try {
-			// Connect to server
-			Socket TCPsocket = new Socket(hostName, portNumber);
+			Utility utility = new UtilityImpl(new Socket("localhost",
+					Integer.parseInt(args[1])));
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 
-			// Declare readers and writers
-			DataOutputStream outToServer = new DataOutputStream(
-					TCPsocket.getOutputStream());
-			BufferedReader inFromServer = new BufferedReader(
-					new InputStreamReader(TCPsocket.getInputStream()));
-
+		try {
 			// Ask for Unique ID
 			outToServer.writeBytes("IDrequest\n");
 			id = Integer.parseInt(inFromServer.readLine());
@@ -46,7 +42,7 @@ public class Client {
 			outToServer.writeBytes(fileName + "\n");
 
 			TCPsocket.close();
-			
+
 			System.out.println("Client" + id + ": started");
 
 			// UDP
@@ -74,20 +70,21 @@ public class Client {
 				DatagramPacket sendPacket = new DatagramPacket(buffer,
 						buffer.length, IPAddress, portNumber);
 				UDPSocket.send(sendPacket);
-				
+
 				File clientFile = new File("client" + id + fileName);
-				FileOutputStream fileOutputStream = new FileOutputStream(clientFile);
+				FileOutputStream fileOutputStream = new FileOutputStream(
+						clientFile);
 				boolean keepGoing = true;
 				while (keepGoing) {
 					buffer = new byte[1024];
 					DatagramPacket receivePacket = new DatagramPacket(buffer,
 							buffer.length);
-					
+
 					try {
 						UDPSocket.receive(receivePacket);
 					} catch (SocketTimeoutException e) {
-						System.out
-								.println("Server" + id + ": Connection timed out");
+						System.out.println("Server" + id
+								+ ": Connection timed out");
 						break;
 					}
 					// If done receiving, stop the while loop
@@ -95,8 +92,8 @@ public class Client {
 							|| receivePacket.getData().length == 0) {
 						keepGoing = false;
 						if (id == 1) {
-						System.out.println("gets called");
-					}
+							System.out.println("gets called");
+						}
 
 					}
 					fileOutputStream.write(receivePacket.getData());

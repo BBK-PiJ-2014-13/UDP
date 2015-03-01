@@ -25,6 +25,12 @@ public interface Utility {
 	 * @param isFirstToConnect
 	 *            Whether the client is first to connect or not
 	 */
+	
+	/**
+	 * Ask server for unique ID
+	 */
+	public int askForID();
+	
 	public boolean answerIfFirstToConnect(boolean isFirstToConnect);
 
 	/**
