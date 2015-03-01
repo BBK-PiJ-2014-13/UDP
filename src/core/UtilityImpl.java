@@ -102,6 +102,7 @@ public class UtilityImpl implements Utility {
 				UDPSocket = new DatagramSocket(portNumber);
 			} else {
 				UDPSocket = new DatagramSocket();
+				IPAddress = InetAddress.getByName("localhost");
 			}
 			UDPSocket.setSoTimeout(3000);
 		} catch (IOException e) {

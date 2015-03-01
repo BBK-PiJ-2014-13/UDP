@@ -28,7 +28,6 @@ public class Client {
 
 			// UDP Section
 			utility.initializeUDP("client");
-			utility.setIPAddress(InetAddress.getByName("localhost"));
 
 			// Send audio
 			if (isFirstToConnect) {
