@@ -13,9 +13,8 @@ public interface Utility {
 	/**
 	 * Send id to client if it requested one
 	 * 
-	 * @return sent String
 	 */
-	public String sendID(int id);
+	public void sendID();
 
 	/**
 	 * Answer for request if first to connect

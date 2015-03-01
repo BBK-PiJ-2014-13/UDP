@@ -19,6 +19,7 @@ public class UtilityImpl implements Utility {
 	private BufferedReader inFromClient;
 	private DataOutputStream outToClient;
 	private int portNumber;
+	public int id;
 	private DatagramSocket UDPSocket;
 	private String onServerFileName;
 	private FileOutputStream fileOutputStream;
@@ -37,7 +38,7 @@ public class UtilityImpl implements Utility {
 	}
 
 	@Override
-	public String sendID(int id) {
+	public void sendID() {
 		try {
 			if (inFromClient.readLine().equals("IDrequest")) {
 				outToClient.writeBytes(Integer.toString(id) + "\n");
@@ -46,7 +47,6 @@ public class UtilityImpl implements Utility {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return null;
 	}
 
 	@Override
@@ -114,12 +114,18 @@ public class UtilityImpl implements Utility {
 					buffer.length);
 			try {
 				UDPSocket.receive(receivePacket);
-			} catch (SocketTimeoutException e) {
-				System.out.println("Server" + id
-						+ ": Connection timed out");
-				break;
+			} catch (IOException e) {
+				if (e instanceof SocketTimeoutException) {
+					System.out.println("Server" + id
+							+ ": Connection timed out");
+					break;
+				}
 			}
 		}
+	}
+
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	
