@@ -144,7 +144,6 @@ public class UtilityImpl implements Utility {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		UDPSocket.close();
 	}
 
 	@Override
@@ -162,14 +161,25 @@ public class UtilityImpl implements Utility {
 			while (targetStream.read(buffer) != -1) {
 				DatagramPacket sendPacket = new DatagramPacket(buffer,
 						buffer.length, IPAddress, portNumber);
+				try {
 				UDPSocket.send(sendPacket);
+				} catch (NullPointerException e) {
+					if (UDPSocket == null) {
+						System.out.println("UDPSocket");
+					}
+					
+					if (sendPacket == null) {
+						System.out.println("sendPacket");
+					}
+					
+					throw e;
+				}
 			}
 			targetStream.close();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		UDPSocket.close();
 	}
 
 }
