@@ -78,6 +78,19 @@ public class UtilityImpl implements Utility {
 	}
 
 	@Override
+	public boolean askIfFirstToConnect() {
+		boolean result = false;
+		try {
+			outTo.writeBytes("firstToConnectRequest" + "\n");
+			result = Boolean.parseBoolean(inFrom.readLine());
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return result;
+	}
+	
+	@Override
 	public String readNameOfFile() {
 		String result = null;
 		try {
@@ -183,5 +196,7 @@ public class UtilityImpl implements Utility {
 		}
 		UDPSocket.close();
 	}
+
+
 
 }

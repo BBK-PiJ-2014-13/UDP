@@ -31,7 +31,16 @@ public interface Utility {
 	 */
 	public int askForID();
 	
+	/**
+	 * @param isFirstToConnect
+	 * @return if client is first to onnect
+	 */
 	public boolean answerIfFirstToConnect(boolean isFirstToConnect);
+	
+	/**
+	 * @return if client is first to connect
+	 */
+	public boolean askIfFirstToConnect();
 
 	/**
 	 * Read name of file from received packet through TCP connection

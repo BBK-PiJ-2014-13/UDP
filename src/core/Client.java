@@ -21,8 +21,9 @@ public class Client {
 		String fileName = args[0];
 		int id;
 		boolean isFirstToConnect = false;
+		Utility utility;
 		try {
-			Utility utility = new UtilityImpl(new Socket("localhost",
+			utility = new UtilityImpl(new Socket("localhost",
 					Integer.parseInt(args[1])));
 		} catch (IOException e1) {
 			// TODO Auto-generated catch block
@@ -31,11 +32,9 @@ public class Client {
 
 		try {
 			// Ask for Unique ID
-			outToServer.writeBytes("IDrequest\n");
-			id = Integer.parseInt(inFromServer.readLine());
+			id = utility.askForID();
 
 			// Ask if its first to connect
-			outToServer.writeBytes("firstToConnectRequest" + "\n");
 			isFirstToConnect = Boolean.parseBoolean(inFromServer.readLine());
 
 			// Send the name of file to Server
