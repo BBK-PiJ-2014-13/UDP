@@ -72,7 +72,8 @@ public class UtilityTester extends BasicTester {
 
 	/**
 	 * tests answerIfFirstToConnect()
-	 * @throws IOException 
+	 * 
+	 * @throws IOException
 	 */
 	@Test
 	public void answerIfFirstToConnectTester() throws IOException {
@@ -83,6 +84,22 @@ public class UtilityTester extends BasicTester {
 		outToServer.writeBytes("firstToConnectRequest" + "\n");
 		valueExpected = false;
 		valueActual = serverUtility.answerIfFirstToConnect(false);
+		test();
+	}
+
+	/**
+	 * tests askIfFirstToConnect()
+	 * @throws IOException 
+	 */
+	@Test
+	public void askIfFirstToConnectTester() throws IOException {
+		outToClient.writeBytes("true\n");
+		valueExpected = true;
+		valueActual = clientUtility.askIfFirstToConnect();
+		test();
+		outToClient.writeBytes("false\n");
+		valueExpected = false;
+		valueActual = clientUtility.askIfFirstToConnect();
 		test();
 	}
 
