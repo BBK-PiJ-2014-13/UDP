@@ -114,6 +114,34 @@ public class UtilityTester extends BasicTester {
 	}
 
 	/**
+	 * tests receiveFile()
+	 * 
+	 * @throws IOException
+	 */
+
+//	@Test
+	public void receiveFileTester() throws IOException {
+		clientUtility.initializeUDP();
+		serverUtility.initializeUDP();
+		
+		// Send
+		buffer = new byte[1024];
+		File audioFile = new File("testFirstFile.txt");
+		InputStream targetStream = new FileInputStream(audioFile);
+		while (targetStream.read(buffer) != -1) {
+			DatagramPacket sendPacket = new DatagramPacket(buffer,
+					buffer.length, clientUtility.getIPAddress(), portNumber);
+			serverUtility.getUDPSocket().send(sendPacket);
+		}
+		targetStream.close();
+		
+		serverUtility.receiveFile("testSecondFile.txt");
+		valueExpected = new File("testFirstFile").length();
+		valueActual = new File("testSecondFile").length();
+		test();
+	}
+
+	/**
 	 * tests sendFile()
 	 * 
 	 * @throws IOException
@@ -124,31 +152,16 @@ public class UtilityTester extends BasicTester {
 		serverUtility.initializeUDP();
 		clientUtility.sendFile("testFirstFile.txt");
 
-		// Send
-		// buffer = new byte[1024];
-		// File audioFile = new File("testFirstFile.txt");
-		// InputStream targetStream = new FileInputStream(audioFile);
-		int count = 0;
-		// while (targetStream.read(buffer) != -1) {
-		// DatagramPacket sendPacket = new DatagramPacket(buffer,
-		// buffer.length, clientUtility.getIPAddress(), portNumber);
-		// serverUtility.getUDPSocket().send(sendPacket);
-		// }
-		// targetStream.close();
-
 		// Receive
 		boolean keepGoing = true;
 		FileOutputStream fileOutputStream = new FileOutputStream(
 				"testSecondFile.txt");
+		int count = 0;
 		while (keepGoing) {
 			System.out.println(count++);
 			buffer = new byte[1024];
 			DatagramPacket receivePacket = new DatagramPacket(buffer,
 					buffer.length);
-			if (count == 65) {
-				System.out.println("gets stuck here");
-			}
-
 			try {
 				serverUtility.getUDPSocket().receive(receivePacket);
 			} catch (IOException e) {
@@ -158,6 +171,12 @@ public class UtilityTester extends BasicTester {
 				} else {
 					e.printStackTrace();
 				}
+			} catch (NullPointerException e) {
+				if (serverUtility.getUDPSocket() == null) {
+					System.out.println("UDP SOCKET");
+				}
+				e.printStackTrace();
+				throw new NullPointerException();
 			}
 
 			fileOutputStream.write(receivePacket.getData());
@@ -170,8 +189,8 @@ public class UtilityTester extends BasicTester {
 		}
 		fileOutputStream.close();
 
-		valueExpected = new File("testFirstFile").length();
-		valueActual = new File("testSecondFile").length();
+		valueExpected = new File("testFirstFile.txt").length();
+		valueActual = new File("testSecondFile.txt").length();
 		test();
 	}
 

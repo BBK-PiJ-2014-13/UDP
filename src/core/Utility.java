@@ -48,7 +48,7 @@ public interface Utility {
 	 * @param socket
 	 *            TCP socket
 	 */
-	public void initializeUDP();
+	public void initializeUDP(String type);
 
 	/**
 	 * Receive file over UDP

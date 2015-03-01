@@ -95,10 +95,14 @@ public class UtilityImpl implements Utility {
 		return result;
 	}
 
-	public void initializeUDP() {
+	public void initializeUDP(String type) {
 		try {
 			TCPSocket.close();
-			UDPSocket = new DatagramSocket(portNumber);
+			if (type.equals("server")) {
+				UDPSocket = new DatagramSocket(portNumber);
+			} else {
+				UDPSocket = new DatagramSocket();
+			}
 			UDPSocket.setSoTimeout(3000);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
