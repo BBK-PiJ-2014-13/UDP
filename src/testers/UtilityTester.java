@@ -14,8 +14,8 @@ public class UtilityTester extends BasicTester {
 	int portNumber = 1099;
 	ServerSocket serverSocket;
 	Socket clientSocket;
-	Utility serverUtility;
-	Utility clientUtility;
+	UtilityImpl serverUtility;
+	UtilityImpl clientUtility;
 
 	@Before
 	public void buildUp() throws IOException {
@@ -27,12 +27,17 @@ public class UtilityTester extends BasicTester {
 	}
 
 	/**
-	 * Tests sendID() and askForID()
+	 * Tests askForID()
+	 * @throws IOException 
 	 */
 	@Test
-	public void sendAndAskForIDTester() {
+	public void askForIDTester() throws IOException {
 		clientUtility.askForID();
 		serverUtility.sendID();
+		valueExpected = 0;
+		valueActual = clientUtility.getId();
+		serverSocket.close();
+		test();
 	}
 
 }
