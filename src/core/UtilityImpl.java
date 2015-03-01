@@ -87,4 +87,15 @@ public class UtilityImpl implements Utility {
 		this.fileName = fileName;
 	}
 
+	public String getFileName() {
+		return fileName;
+	}
+
+	
+	@Override
+	public void receiveFile() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

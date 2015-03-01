@@ -9,7 +9,7 @@ import java.net.Socket;
  *         Provides methods for Client and ServerThread objects
  */
 public interface Utility {
-
+	
 	/**
 	 * Send id to client if it requested one
 	 * 
@@ -41,5 +41,14 @@ public interface Utility {
 	 */
 	public void initializeUDP(Socket socket);
 	
+	/**
+	 * @param fileName name of audio file
+	 */
 	public void setFileName(String fileName);
+
+	/**
+	 * Receive file over UDP connection
+	 */
+	public void receiveFile();
 }
+	

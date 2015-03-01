@@ -14,7 +14,6 @@ import java.net.SocketTimeoutException;
 public class ServerThread extends Thread {
 	private Socket TCPSocket = null;
 	String clientSentence = null;
-	String fileName;
 	String inputFile; // Name of file copied from client and then sent to other
 						// clients
 	Utility utility;
@@ -29,10 +28,10 @@ public class ServerThread extends Thread {
 		this.TCPSocket = socket;
 		this.id = id;
 		this.isFirstToConnect = isFirstToConnect;
-		this.inputFile = inputFile;
 		portNumber = socket.getLocalPort();
 		IPAddress = socket.getInetAddress();
 		utility = new UtilityImpl(TCPSocket);
+		utility.setFileName(inputFile);
 	}
 
 	public void run() {
@@ -46,8 +45,8 @@ public class ServerThread extends Thread {
 			// Indicate to client if it is a sender or receiver process
 			utility.answerIfFirstToConnect(isFirstToConnect);
 
-			// Receive name of file
-			fileName = utility.readNameOfFile();
+			// Receive name of file and remember it
+			utility.setFileName(utility.readNameOfFile());
 
 			// Close TCP connection and open UDP
 			utility.initializeUDP(TCPSocket);
