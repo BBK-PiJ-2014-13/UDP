@@ -15,12 +15,12 @@ public interface Utility {
 	 * 
 	 * @return sent String
 	 */
-	public String sendID(Socket socket, int id);
+	public String sendID(int id);
 	
 	/**
 	 * Answer for request if first to connect
 	 * 
 	 * @return answer: true if the client is first to connect, false if not 
 	 */
-	public boolean answerIfFirstToConnect(Socket socket, boolean isFirstToConnect);
+	public boolean answerIfFirstToConnect(boolean isFirstToConnect);
 }

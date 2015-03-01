@@ -15,11 +15,11 @@ public class UtilityImpl implements Utility {
 	private Socket socket;
 	
 	public UtilityImpl(Socket socket) {
-		
+		this.socket = socket;
 	}
 	
 	@Override
-	public String sendID(Socket socket, int id) {
+	public String sendID(int id) {
 		try {
 			inFromClient = new BufferedReader(new InputStreamReader(
 					socket.getInputStream()));
@@ -35,8 +35,7 @@ public class UtilityImpl implements Utility {
 	}
 
 	@Override
-	public boolean answerIfFirstToConnect(Socket socket,
-			boolean isFirstToConnect) {
+	public boolean answerIfFirstToConnect(boolean isFirstToConnect) {
 		try {
 			if (inFromClient.readLine().equals("firstToConnectRequest")) {
 				outToClient.writeBytes(Boolean.toString(isFirstToConnect)
