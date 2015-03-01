@@ -52,9 +52,15 @@ public class UtilityImpl implements Utility {
 	}
 
 	public int askForID() {
-		outToServer.writeBytes("IDrequest\n");
-		id = Integer.parseInt(inFromServer.readLine());
-
+		int result = 0;
+		try {
+			outTo.writeBytes("IDrequest\n");
+			result = Integer.parseInt(inFrom.readLine());
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return result;
 	}
 	
 	@Override
