@@ -46,6 +46,7 @@ public class UtilityImpl implements Utility {
 
 	@Override
 	public void sendID() {
+		
 		try {
 			if (inFrom.readLine().equals("IDrequest")) {
 				outTo.writeBytes(Integer.toString(id) + "\n");
@@ -61,7 +62,6 @@ public class UtilityImpl implements Utility {
 		try {
 			outTo.writeBytes("IDrequest\n");
 			result = Integer.parseInt(inFrom.readLine());
-			System.out.println("gets called");
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

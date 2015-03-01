@@ -8,7 +8,6 @@ public class BasicTester {
 	protected Object valueExpected = 1;
 	protected Object valueActual = 0;
 
-	@Test
 	public void test() {
 		assertEquals(valueExpected, valueActual);
 		valueActual = 0;
