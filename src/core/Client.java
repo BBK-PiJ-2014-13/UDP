@@ -27,7 +27,7 @@ public class Client {
 			isFirstToConnect = utility.askIfFirstToConnect();
 
 			// UDP Section
-			utility.initializeUDP();
+			utility.initializeUDP("client");
 			
 			InetAddress IPAddress = InetAddress.getByName("localhost");
 

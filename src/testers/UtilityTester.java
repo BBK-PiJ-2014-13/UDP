@@ -121,8 +121,8 @@ public class UtilityTester extends BasicTester {
 
 //	@Test
 	public void receiveFileTester() throws IOException {
-		clientUtility.initializeUDP();
-		serverUtility.initializeUDP();
+		clientUtility.initializeUDP("client");
+		serverUtility.initializeUDP("server");
 		
 		// Send
 		buffer = new byte[1024];
@@ -148,8 +148,8 @@ public class UtilityTester extends BasicTester {
 	 */
 	@Test
 	public void sendFileTester() throws IOException {
-		clientUtility.initializeUDP();
-		serverUtility.initializeUDP();
+		clientUtility.initializeUDP("client");
+		serverUtility.initializeUDP("server");
 		clientUtility.sendFile("testFirstFile.txt");
 
 		// Receive

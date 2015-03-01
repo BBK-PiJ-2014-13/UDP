@@ -25,7 +25,7 @@ public class ServerThread extends Thread {
 		utility.answerIfFirstToConnect(isFirstToConnect);
 
 		// UDP Section
-		utility.initializeUDP();
+		utility.initializeUDP("server");
 		
 		// Receive
 		if (isFirstToConnect) {
