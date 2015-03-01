@@ -39,7 +39,7 @@ public class UtilityTester extends BasicTester {
 		outToServer = new DataOutputStream(client.getOutputStream());
 		outToClient = new DataOutputStream(server.getOutputStream());
 	}
-	
+
 	@After
 	public void wrapUp() throws IOException {
 		client.close();
@@ -56,16 +56,33 @@ public class UtilityTester extends BasicTester {
 		valueActual = Integer.parseInt(inFromServer.readLine());
 		test();
 	}
-	
+
 	/**
 	 * Tests askForID()
-	 * @throws IOException 
+	 * 
+	 * @throws IOException
 	 */
 	@Test
 	public void askForIDTester() throws IOException {
 		outToClient.writeBytes(Integer.toString(50) + "\n");
 		valueExpected = 50;
 		valueActual = clientUtility.askForID();
+		test();
+	}
+
+	/**
+	 * tests answerIfFirstToConnect()
+	 * @throws IOException 
+	 */
+	@Test
+	public void answerIfFirstToConnectTester() throws IOException {
+		outToServer.writeBytes("firstToConnectRequest" + "\n");
+		valueExpected = true;
+		valueActual = serverUtility.answerIfFirstToConnect(true);
+		test();
+		outToServer.writeBytes("firstToConnectRequest" + "\n");
+		valueExpected = false;
+		valueActual = serverUtility.answerIfFirstToConnect(false);
 		test();
 	}
 

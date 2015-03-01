@@ -4,7 +4,7 @@ import java.net.Socket;
 
 public class ServerThread extends Thread {
 	private Socket TCPSocket = null;
-	Utility utility;
+	UtilityImpl utility;
 	boolean isFirstToConnect;
 
 	public ServerThread(Socket socket, int id, boolean isFirstToConnect,
