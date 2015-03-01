@@ -110,6 +110,8 @@ public class UtilityTester extends BasicTester {
 	 */
 	@Test
 	public void receiveSendFileTester() {
+		clientUtility.initializeUDP();
+		serverUtility.initializeUDP();
 		clientUtility.sendFile("audio.mp3");
 		serverUtility.receiveFile("serverFileTest.mp3");
 		valueExpected = new File("audio.mp3").length();
