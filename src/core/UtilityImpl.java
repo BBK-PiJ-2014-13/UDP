@@ -128,6 +128,8 @@ public class UtilityImpl implements Utility {
 					System.out
 							.println("Server" + id + ": Connection timed out");
 					break;
+				} else {
+					e.printStackTrace();
 				}
 			}
 

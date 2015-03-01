@@ -106,10 +106,10 @@ public class UtilityTester extends BasicTester {
 	}
 
 	/**
-	 * tests receiveFile() and sendFile()
+	 * tests sendFile()
 	 */
 	@Test
-	public void receiveSendFileTester() {
+	public void sendFileTester() {
 		clientUtility.initializeUDP();
 		serverUtility.initializeUDP();
 		clientUtility.sendFile("audio.mp3");
