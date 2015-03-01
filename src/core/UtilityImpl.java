@@ -99,7 +99,7 @@ public class UtilityImpl implements Utility {
 		try {
 			TCPSocket.close();
 			UDPSocket = new DatagramSocket(portNumber);
-			UDPSocket.setSoTimeout(2000);
+			UDPSocket.setSoTimeout(3000);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
