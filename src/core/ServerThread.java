@@ -13,7 +13,7 @@ public class ServerThread extends Thread {
 		this.isFirstToConnect = isFirstToConnect;
 		utility = new UtilityImpl(TCPSocket);
 		utility.setOnServerFileName(onServerFileName);
-		utility.setID(id);
+		utility.setId(id);
 	}
 
 	public void run() {

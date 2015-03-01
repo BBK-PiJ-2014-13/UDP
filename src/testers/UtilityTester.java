@@ -2,6 +2,7 @@ package testers;
 
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.ServerSocket;
@@ -49,7 +50,7 @@ public class UtilityTester extends BasicTester {
 
 	@Test
 	public void sendIDTester() throws IOException {
-		serverUtility.setID(35);
+		serverUtility.setId(35);
 		outToServer.writeBytes("IDrequest\n");
 		serverUtility.sendID();
 		valueExpected = 35;
@@ -89,7 +90,8 @@ public class UtilityTester extends BasicTester {
 
 	/**
 	 * tests askIfFirstToConnect()
-	 * @throws IOException 
+	 * 
+	 * @throws IOException
 	 */
 	@Test
 	public void askIfFirstToConnectTester() throws IOException {
@@ -102,7 +104,17 @@ public class UtilityTester extends BasicTester {
 		valueActual = clientUtility.askIfFirstToConnect();
 		test();
 	}
-	
-	
+
+	/**
+	 * tests receiveFile() and sendFile()
+	 */
+	@Test
+	public void receiveSendFileTester() {
+		clientUtility.sendFile("audio.mp3");
+		serverUtility.receiveFile("serverFileTest.mp3");
+		valueExpected = new File("audio.mp3").length();
+		valueActual = new File("serverFileTest.mp3").length();
+		test();
+	}
 
 }
