@@ -19,31 +19,23 @@ public class Client {
 			e1.printStackTrace();
 		}
 
-		try {
-			// Ask for Unique ID
-			id = utility.askForID();
+		// Ask for Unique ID
+		id = utility.askForID();
 
-			// Ask if its first to connect
-			isFirstToConnect = utility.askIfFirstToConnect();
+		// Ask if its first to connect
+		isFirstToConnect = utility.askIfFirstToConnect();
 
-			// UDP Section
-			utility.initializeUDP("client");
+		// UDP Section
+		utility.initializeUDP("client");
 
-			// Send audio
-			if (isFirstToConnect) {
-				utility.sendFile(originalFileName);
-			}
+		// Send audio
+		if (isFirstToConnect) {
+			utility.sendFile(originalFileName);
+		}
 
-			// Receive audio
-			else {
-				utility.receiveFile("Client" + id + originalFileName);
-			}
-		} catch (UnknownHostException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		// Receive audio
+		else {
+			utility.receiveFile("Client" + id + originalFileName);
 		}
 	}
 }
