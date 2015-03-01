@@ -1,5 +1,7 @@
 package core;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.net.Socket;
 
 /**
@@ -55,9 +57,22 @@ public interface Utility {
 	public void receiveFile(String fileName);
 
 	/**
+	 * Send file
+	 * @param fileName name of the file to send
+	 * @throws FileNotFoundException 
+	 * @throws IOException 
+	 */
+	public void sendFile(String fileName);
+	
+	/**
 	 * 
 	 * @param id
 	 *            of client that connects to server
 	 */
 	public void setID(int id);
+	
+	/**
+	 * @return name of file on server
+	 */
+	public String getOnServerFileName();
 }
