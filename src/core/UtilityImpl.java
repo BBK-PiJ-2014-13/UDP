@@ -6,10 +6,17 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.Socket;
 
+import org.junit.Before;
+
 public class UtilityImpl implements Utility {
 
 	private BufferedReader inFromClient;
 	private DataOutputStream outToClient;
+	
+	@Before
+	public void buildUp() {
+		
+	}
 
 	@Override
 	public String sendID(Socket socket, int id) {
@@ -25,6 +32,16 @@ public class UtilityImpl implements Utility {
 			e.printStackTrace();
 		}
 		return null;
+	}
+
+	@Override
+	public boolean answerIfFirstToConnect() {
+		if (inFromClient.readLine().equals("firstToConnectRequest")) {
+			outToClient.writeBytes(Boolean.toString(isFirstToConnect)
+					+ "\n");
+		}
+
+		return false;
 	}
 
 }
