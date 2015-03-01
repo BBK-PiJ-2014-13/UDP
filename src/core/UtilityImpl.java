@@ -12,18 +12,22 @@ public class UtilityImpl implements Utility {
 
 	private BufferedReader inFromClient;
 	private DataOutputStream outToClient;
-	private Socket socket;
-	
+
 	public UtilityImpl(Socket socket) {
-		this.socket = socket;
-	}
-	
-	@Override
-	public String sendID(int id) {
 		try {
 			inFromClient = new BufferedReader(new InputStreamReader(
 					socket.getInputStream()));
 			outToClient = new DataOutputStream(socket.getOutputStream());
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+	}
+
+	@Override
+	public String sendID(int id) {
+		try {
 			if (inFromClient.readLine().equals("IDrequest")) {
 				outToClient.writeBytes(Integer.toString(id) + "\n");
 			}
